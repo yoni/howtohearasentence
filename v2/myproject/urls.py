@@ -1,4 +1,6 @@
 from django.conf.urls.defaults import *
+from myproject.views import home
+
 from django.contrib import admin
 admin.autodiscover()
 
@@ -18,7 +20,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/(.*)', admin.site.root),
     
-    #(r'^hello/$', hello),
+    (r'^$', home),
     #(r'^time/$', current_datetime),
     #(r'^time/plus/(\d{1,2})/$', hours_ahead),
 )

@@ -1,6 +1,8 @@
-from django.shortcuts import render_to_response
-import datetime
+from django.template.loader import get_template
+from django.template import Context
+from django.http import HttpResponse
 
-def current_datetime(request):
-    current_date = datetime.datetime.now()
-    return render_to_response('dateapp/current_datetime.html', locals())
+def home(request):
+    t = get_template('hthas/home.html')
+    html = t.render(Context({}))
+    return HttpResponse(html)
