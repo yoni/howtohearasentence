@@ -71,7 +71,11 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/Users/yoni/workspace/hthas/v2/myproject/templates',
+    
+    # Yoni's setup. Change this to match the path to your project
+    '/Users/yoni/workspace/hthas_2/v2/myproject/templates',
+
+    # TODO: can we make these paths project relative?
 )
 
 INSTALLED_APPS = (
