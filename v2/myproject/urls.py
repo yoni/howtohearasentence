@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from myproject.views import home, parser
+from myproject.views import home, dostoevsky, bbc, thingsaregreat
 
 from django.contrib import admin
 admin.autodiscover()
@@ -21,7 +21,9 @@ urlpatterns = patterns('',
     (r'^admin/(.*)', admin.site.root),
     
     (r'^$', home),
-    (r'^parser$', parser),
+    (r'^dostoevsky$', dostoevsky),
+    (r'^bbc$', bbc),
+    (r'^thingsaregreat$', thingsaregreat),
     #(r'^time/$', current_datetime),
     #(r'^time/plus/(\d{1,2})/$', hours_ahead),
 )
