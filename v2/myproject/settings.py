@@ -3,6 +3,10 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+# Use SITE_ROOT for setting project-relative paths
+import os
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+
 ADMINS = (
     ('2headed','yoni.bmesh@gmail.com'),
     ('zdan','marisa.plumb@gmail.com')
@@ -12,7 +16,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'hthas_sqlite'             # Or path to database file if using sqlite3.
+DATABASE_NAME = os.path.join(SITE_ROOT,'hthas_sqlite')           # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -73,7 +77,8 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     
     # Yoni's setup. Change this to match the path to your project
-    '/Users/yoni/workspace/hthas_2/v2/myproject/templates',
+    #'/Users/yoni/workspace/hthas_2/v2/myproject/templates',
+    os.path.join(SITE_ROOT, 'templates'),
 
     # TODO: can we make these paths project relative?
 )
