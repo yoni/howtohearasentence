@@ -2,11 +2,48 @@
 
 <head>
 	<title>howtohearasentence</title>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.js"></script>
+
 	<script type="text/javascript">
-		document.write("How To Hear A Sentence");
+		function doSubmit() {
+			var text_in = $('.text_in').html();
+			var article_text = $('.local_article').html();
+			$('.local_article').html(article_text + text_in);
+			$(".remote_article").load("thingsaregreat", {phrase:"this is the phrase"});
+		}
+
+		function putContent(result){
+			alert("Data Loaded: " + result);
+		}
+		
+		function addToRemoteArticle(data) {
+			var text_in = $('.text_in').html();
+			var article_text = $('.remote_article').html(); 			
+		}
+		
+		function refresh() {
+			//refresh the screen every 1sec=1000ms
+			setTimeout("refresh();",1000);
+			//TODO: update the conversation
+			$('.ab').text($('.ab').text()+"h");
+		}
+		
 	</script>
 </head>
 
-<body></body>
+<body onload="refresh()">
+<div id="abc" class="ab"></div>
+<textarea class="text_in" rows="3" cols="30" wrap="hard" tabindex="1">
+</textarea>
+<button type=submit onclick="doSubmit();"></button>
+
+<textarea id='abc' class="local_article" rows="20" cols="30" readonly="readonly">
+</textarea>
+
+<textarea class="remote_article" rows="20" cols="30" readonly="readonly">
+</textarea>
+
+</body>
 
 </html>

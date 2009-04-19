@@ -11,6 +11,8 @@ from django.http import HttpResponse
 
 import os
 
+glob = "yoni"
+
 def home(request):
     t = get_template('hthas/home.html')
     html = t.render(Context({}))
@@ -43,6 +45,10 @@ def bbc(request):
     return HttpResponse(html)
 
 def thingsaregreat(request):
-    url = "http://text.omnib.in/thingsaregreat"
-    html = urlopen(url).read()
-    return HttpResponse(html)
+    if request.method == 'POST':
+        article = glob + request.POST.__getitem__("phrase")
+    #elif request.method == 'GET':
+        #glob = glob + "schmoe"
+    if request.is_ajax():
+        return HttpResponse(article)
+    return HttpResponse("This page is meant to be called using AJAX")
