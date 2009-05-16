@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Fun with gfx!</title>
+
+        <script
+            type="text/javascript"
+            src="http://o.aolcdn.com/dojo/1.1/dojo/dojo.xd.js"
+            djConfig="isDebug:true">
+        </script>
+
+        <!--
+            Workaround necessary for loading gfx over the CDN until 1.2
+            lands. See http://trac.dojotoolkit.org/ticket/4462
+        -->
+        <script
+            type="text/javascript"
+            src="http://o.aolcdn.com/dojo/1.1/dojox/gfx.js">
+        </script>
+
+        <script type="text/javascript">
+        dojo.require("dojo.fx");
+        dojo.require("dojox.gfx");
+        dojo.require("dojox.gfx.fx");
+        dojo.addOnLoad(function() {
+
+            //create a drawing surface
+            var g = dojox.gfx.createSurface(dojo.byId("g"), 200, 200);
+
+            //draw a circle on it
+            var circle = g.createCircle({cx : 100, cy : 100, r : 10})
+            .setFill("blue");
+
+            var node = dojo.byId("someId");
+            dojo.fadeOut({
+                    node: node,
+                    onEnd: function(){
+                            node.innerHTML = "<p>Like magic!</p>"
+                            dojo.fadeIn({
+                                    node: node
+                            }).play()
+                    }
+            }).play();
+   </script>
+    </head>
+    <body>
+    <div id="g"></div>
+    </body>
+</html>
+
