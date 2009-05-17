@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # Create your models here.
 class Author(models.Model):
@@ -8,24 +9,35 @@ class Author(models.Model):
     
     def __unicode__(self):
         return self.first_name + ' ' + self.last_name
+
+class Sentence(models.Model):
+    text = models.CharField(max_length=500)
+    created = models.DateTimeField()
+    updated = models.DateTimeField(null=True)
+    authors = models.ManyToManyField(Author)
     
-class Word(models.Model):
-    text = models.CharField(max_length=100)
-    author = models.ForeignKey(Author)
-    publication_date = models.DateField(blank=True, null=True)
+    def save(self):
+        if not self.id:
+            self.created = datetime.datetime.now()
+            self.updated = self.created
+        self.updated = datetime.datetime.now()
+        super(Sentence, self).save()
+
     def __unicode__(self):
         return self.text
 
-class Phrase(models.Model):
-    title = models.CharField(max_length=30)
-    words = models.ManyToManyField(Word)
-    
-    def __unicode__(self):
-        return self.title
-
 class Article(models.Model):
-    title = models.CharField(max_length=100)
-    phrases= models.ManyToManyField(Phrase)
+    sentences= models.ManyToManyField(Sentence)
+    created = models.DateTimeField()
+    updated = models.DateTimeField(null=True)
+    text = models.FilePathField(null=True)
+    
+    def save(self):
+        if not self.id:
+            self.created = datetime.datetime.now()
+            self.updated = self.created
+        self.updated = datetime.datetime.now()
+        super(Article, self).save()
     
     def __unicode__(self):
-        return self.title
+        return self.id

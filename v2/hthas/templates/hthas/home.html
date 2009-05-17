@@ -7,14 +7,14 @@
 
 	<script type="text/javascript">
 		function doSubmit() {
-			var text_in = $('.text_in').html();
-			var article_text = $('.local_article').html();
-			$('.local_article').html(article_text + text_in);
-			$(".remote_article").load("thingsaregreat", {phrase:"this is the phrase"});
+			var text_in = $('.text_in').val();
+			var article_text = $('.local_article').val();
+			$('.local_article').val(article_text + text_in);
+			$.get("recordSentence", {sentence:text_in}, addToLocalArticle);
 		}
 
-		function putContent(result){
-			alert("Data Loaded: " + result);
+		function addToLocalArticle(result){
+			alert(result);
 		}
 		
 		function addToRemoteArticle(data) {

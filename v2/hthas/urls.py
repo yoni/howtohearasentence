@@ -1,6 +1,5 @@
 from django.conf.urls.defaults import *
-from hthas.views import home, dostoevsky, bbc, thingsaregreat
-
+from hthas.views import home, dostoevsky, bbc, thingsaregreat, histogram, dojoHelloWorld, partsofspeechtagger, posTaggerPage, tagsentences
 from django.contrib import admin
 admin.autodiscover()
 
@@ -19,11 +18,10 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/(.*)', admin.site.root),
+    #(r'^accounts/login/$', 'django.contrib.auth.views.login'),
     
     (r'^$', home),
-    (r'^dostoevsky$', dostoevsky),
-    (r'^bbc$', bbc),
-    (r'^thingsaregreat$', thingsaregreat),
-    #(r'^time/$', current_datetime),
-    #(r'^time/plus/(\d{1,2})/$', hours_ahead),
+    (r'^tagger$', posTaggerPage),
+    (r'^partsofspeechtagger$', partsofspeechtagger),
+    (r'^tagsentences$', tagsentences),
 )
