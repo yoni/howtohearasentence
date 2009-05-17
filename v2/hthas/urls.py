@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from hthas.views import home, dostoevsky, bbc, thingsaregreat, histogram, dojoHelloWorld, partsofspeechtagger, posTaggerPage, tagsentences
+from hthas.views import home, partsofspeechtagger, posTaggerPage, tagsentences
 from django.contrib import admin
 admin.autodiscover()
 
