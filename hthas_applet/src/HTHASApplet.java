@@ -1,6 +1,6 @@
 import java.util.Random;
-
-import processing.core.PApplet;
+import processing.core.*;
+import processing.opengl.*;
 import rita.*;
 
 public class HTHASApplet extends PApplet {
@@ -13,8 +13,8 @@ public class HTHASApplet extends PApplet {
 	int clicks = 0;
 
 	public void setup() {
-		RiText.disableAutoDraw();
-		size(1000, 1000);
+		//RiText.disableAutoDraw();
+		size(screen.width, screen.height, OPENGL);
 		sentences = RiText.loadStrings(this, "sentences.txt");
 		inferences = RiText.loadStrings(this, "inferences.txt");
 		for(RiText rt : RiText.getInstances()) {
@@ -30,20 +30,24 @@ public class HTHASApplet extends PApplet {
 		//pick a random sentence and position it  at a random point on the screen
 		float[] point = randomPosition(); 
 		RiText rt = (RiText) RiTa.random(RiText.getInstances());
-		rt.setLocation(point[0], point[1]);
+		rt.setX(point[0]);
+		rt.setY(point[1]);
+		rt.setZ(point[2]);
 		rt.createFont("Arial", 20);
-		rt.draw();
+		//rt.draw();
 		
 		//make it animate
 		float[] newPoint = randomPosition();
-		rt.moveTo(newPoint[0], newPoint[1], 4);
+		rt.moveTo3D(newPoint[0], newPoint[1], newPoint[2], 4);
 		//textManipulation();
 	}
 	
 	private float[] randomPosition() {
-		float yCoord = rand.nextInt(getSize().height);
 		float xCoord = rand.nextInt(getSize().width);
-		float[] point = {xCoord, yCoord};
+		float yCoord = rand.nextInt(getSize().height);
+		float zCoord = rand.nextInt(getSize().height);
+		
+		float[] point = {xCoord, yCoord, zCoord};
 		return point;
 	}
 
