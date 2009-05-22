@@ -1,0 +1,41 @@
+/*
+ * How to hear a sentence CSS
+ */
+html {
+	overflow: hidden;
+}
+body {
+	background-color: #FDFDF0;
+	background-image: url("../images/paper.jpg");
+	background-position: 50% 0%;
+	background-repeat: no-repeat; 		
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	position: fixed;
+	width: 100%;
+}
+
+.blackBox {
+	background-color: black;
+	height: 30%;
+	position:relative;
+	z-index:0;
+}
+
+.sentence {
+	color:#000000;
+	font-family:"Book Antiqua";
+	font-size:medium;
+	position:absolute;
+	width:100px;
+	z-index:1;
+}
+
+/*
+span{
+	position: absolute;
+	font-family: tahoma,verdana,serif;
+	width: 25%;
+}
+*/
