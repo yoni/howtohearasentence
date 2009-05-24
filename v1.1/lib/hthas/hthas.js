@@ -38,10 +38,35 @@ var hthas = {
 	 * the black box
 	 */
 	queueNextSentence:function() {
+		var bbPosition = $('.blackBox').position();
 		var id = hthas.Sentences[hthas.sentenceQueue].element.id;
-		$(id).animate({left:'300px', bottom:'300px'}, 5000);
+		$('#'+id).animate({
+				left:bbPosition.left + 'px', 
+				top:bbPosition.top + 'px'}, 
+				10000,
+				'linear', 
+				function(){
+					hthas.handleSentenceAnimationEnd(id);
+				});
+		hthas.sentenceQueue++;
 	},
 	
+	/**
+	 * Called when the sentence animation ends, and the sentence is in the box.
+	 */
+	handleSentenceAnimationEnd:function(sentenceId) {
+		// for each keyword in the sentence
+		$('#'+ sentenceId +' .keyword').each(
+			function() {
+				//alert(this);
+				var word = hthas.cleanKeyword(this.innerHTML);
+				var kColor = hthas.keywordMap[word].color;
+				$(this).animate(
+					{
+						color: 'blue'
+					}, 1000);
+			});
+	},
 	/**
 	 * Sets the word to lower case and removes trailing 's'
 	 * @param keyword, a String
@@ -60,70 +85,26 @@ var hthas = {
 		//set up a map to hold all of the keywords and assign them some useful values:
 		// a color
 		// an array of sentence ids which contain that keyword
-		
 		hthas.keywordMap = {};
 		
 		$('.sentence').each(function(){
 			var sentence = this;
-
+			
 			$('#'+sentence.id + ' .keyword').each(function(){
+				
 				var keyword = this.innerHTML;
+
 				keyword = hthas.cleanKeyword(keyword);
-				if(keyword=='prototype') {
-					alert(sentence.id);
-				}
+
 				if (!hthas.keywordMap[keyword]) {
-					hthas.keywordMap[keyword] = sentence.id;
+					hthas.keywordMap[keyword] = {sentences:'', color:hthas.getKeywordColor()};
+					hthas.keywordMap[keyword].sentences += sentence.id;
 				}
 				else {
-					hthas.keywordMap[keyword] += ',' + sentence.id;
+					hthas.keywordMap[keyword].sentences += ',' + sentence.id;
 				}
 			});
 		});
-		
-	/*
-	 * 
-1,18,3,false
-5,16,2,false
-27,34,10,false
-11,30,8,false
-1,26,5,false
-21,40,12,false
-3,18,4,false
-29,20,7,false
-33,0,9,false
-39,28,11,false
-
-[
-6,13,1,false (remove s)
-],[
-],[
-],[
-11,28,6,false (remove s)
-],[
-],[
-],[
-],[
-],[
-],[
-]];
-
-	 */
-		
-		/*
-		$('.keyword').each(function() {
-			hthas.keywordMap[this.innerHTML] = {sentences:'', color:''};
-		});
-		
-		for(var keyword in hthas.keywordMap) {
-			$('.sentence').each(function(){
-				var sentence = this;
-				$(sentence + ' .keyword').each(function(){
-					hthas.keywordMap[keyword].sentences += sentence.id + ',';
-				});
-			});
-		}
-		*/
 	},
 	
 	/**
@@ -137,8 +118,11 @@ var hthas = {
 	 * Returns the next available color from the array of possible keyword colors
 	 */
 	getKeywordColor:function(){
-		var color = hthas.keywordColors.pop();
-		return color;
+		
+		//for now, just getting a random color. need to change this.
+		var rand = Math.random()*hthas.keywordColors.length;
+		rand = Math.floor(rand);
+		return hthas.keywordColors[rand];;
 	},
 	
 	/**
@@ -160,6 +144,23 @@ var hthas = {
 			args.id = 'sentence'+i;
 			hthas.Sentences.push(new Sentence(args));
 		}
+	},
+	
+	/**
+	 * Set up positioning for the black box.
+	 */
+	initializeStyles:function() {
+		// width for the black box and sentnences
+		var width = screen.width/4;
+		
+		// set up size of black box
+		$('.blackBox').css('height',screen.height/4 + 'px');
+		$('.blackBox').css('width',width + 'px');
+		//set up position of black box
+		$('.blackBox').css('left',screen.width/2 - screen.width/8+ 'px');
+		$('.blackBox').css('top',screen.height/2 + 'px');
+		
+		$('.sentence').css('width',	width);
 	}
 	
 }
