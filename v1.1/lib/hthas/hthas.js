@@ -2,9 +2,15 @@
  * @author yoni
  */
 var hthas = {
-	//This array will hold our Sentence objects, arranged in order
+	//the black box and sentence width
+	sWidth:screen.width/4,
+	//These arraya will hold our Sentence and Inference objects, arranged in order
 	Sentences:[],
-	
+	Inferences:[],
+	// the inde of the next sentence to animate in
+	sentenceQueue:0,
+	// holds sentence ids for those sentences that made it to the black box
+	bBoxSentences:{},
 	/**
 	 * On each spacebar press, we queue in the next sentence.
 	 * @param {Object} eventObject
@@ -12,7 +18,12 @@ var hthas = {
 	handleKeypress:function(eventObject) {
 		switch (eventObject.which) {
 			case 32://spacebar pressed
-				hthas.queueNextSentence();
+				if (hthas.sentenceQueue < hthas.Sentences.length) {
+					hthas.queueNextSentence();
+				}
+				else{
+					hthas.endPresentation();
+				}
 				break;
 			default:
 				break;
@@ -20,17 +31,12 @@ var hthas = {
 	},
 	
 	/**
-	 * Finds common keywords between sentences.
+	 * Called after all of the sentences have been animated in.
 	 */
-	findCommonKeywords:function(){
-		var keywords = "";
-		$('.keyword').each(function(){
-			keywords += $(this).html() + "\n";
-			return keywords;
-		});
+	endPresentation:function() {
+		//do something?
 	},
 	
-	sentenceQueue:0,
 	/**
 	 * Loads next sentence into the page from a random spot on 
 	 * either the right or the left, depending on who the 
@@ -39,14 +45,14 @@ var hthas = {
 	 */
 	queueNextSentence:function() {
 		var bbPosition = $('.blackBox').position();
-		var id = hthas.Sentences[hthas.sentenceQueue].element.id;
-		$('#'+id).animate({
+		var sentenceId = hthas.Sentences[hthas.sentenceQueue].element.id;
+		$('#'+sentenceId).animate({
 				left:bbPosition.left + 'px', 
 				top:bbPosition.top + 'px'}, 
 				10000,
 				'linear', 
 				function(){
-					hthas.handleSentenceAnimationEnd(id);
+					hthas.handleSentenceAnimationEnd(sentenceId);
 				});
 		hthas.sentenceQueue++;
 	},
@@ -56,17 +62,28 @@ var hthas = {
 	 */
 	handleSentenceAnimationEnd:function(sentenceId) {
 		// for each keyword in the sentence
+		
+		//TODO: add the keywords to the box instead of just changing their colors
 		$('#'+ sentenceId +' .keyword').each(
 			function() {
-				//alert(this);
-				var word = hthas.cleanKeyword(this.innerHTML);
-				var kColor = hthas.keywordMap[word].color;
-				$(this).animate(
+				
+				var keyword = hthas.cleanKeyword(this.innerHTML);
+				
+				//place keyword in the box				
+				var kColor = hthas.keywordMap[keyword].color;
+				$(this).css(
 					{
-						color: 'blue'
-					}, 1000);
+						'color':kColor,'font-size': '24px'
+					});
+				
+				//set this sentence as having arrived at the box
+				hthas.bBoxSentences[sentenceId] = true;
+				//check if all sentences realated to the keyword have made it to the box
+				var kSentences = hthas.keywordMap[keyword].sentences;
+				
 			});
 	},
+	
 	/**
 	 * Sets the word to lower case and removes trailing 's'
 	 * @param keyword, a String
@@ -75,11 +92,14 @@ var hthas = {
 	cleanKeyword:function(keyword) {
 		keyword = keyword.toUpperCase();
 		keyword = keyword.replace(/S$/,''); //remove trailing s
+		keyword = keyword.replace(/ION$/,''); //remove trailing 'ion' (for 'suggestion')
+		
 		return keyword;
 	},
 	
 	/**
-	 * Map a given keyword to all of the Sentences that have that keyword
+	 * Map a given keyword to all of the Sentences and Inferences that have that keyword.
+	 * Also associate each keyword with a color.
 	 */
 	mapKeywords:function() {
 		//set up a map to hold all of the keywords and assign them some useful values:
@@ -105,6 +125,17 @@ var hthas = {
 				}
 			});
 		});
+	
+		// associate this inference with its keyword		
+		$('.inference').each(function(){
+			var inference = this;
+			$('#'+ inference.id + ' .keyword').each(function(){
+				var keyword = this.innerHTML;
+				keyword = hthas.cleanKeyword(keyword);
+				hthas.keywordMap[keyword].inference = inference.id;
+			});
+		});
+		
 	},
 	
 	/**
@@ -135,7 +166,7 @@ var hthas = {
 			var args = {};
 			args.text = SENTENCES[i];
 			var randomHeight = document.height * Math.random();
-			args.position = {x:'0px', y:randomHeight+'px'};
+			args.position = {x:'-'+ hthas.sWidth + 'px', y:randomHeight+'px'};
 			if(i%2) { 
 				args.type = 'right';
 			} else {
@@ -147,20 +178,41 @@ var hthas = {
 	},
 	
 	/**
+	 * Initializes sentence objects for later manipulation.
+	 * TODO:Consider doing this on the fly, so as to support new
+	 * sentences coming in live.
+	 */
+	initializeInferences:function() {
+		// styles
+		$('.inference').css('width', screen.width/2);
+		// create the Inference objects and position them
+		var nextInfY = 30;
+		var margin = 10;
+		for(var i = 0; i < INFERENCES.length; i++) {
+			var args = {};
+			args.text = INFERENCES[i];
+			args.position = {x:screen.width/4 + 'px', y: nextInfY + margin + 'px'};
+			args.id = 'inference'+i;
+			var inf = new Inference(args);
+			nextInfY += $(inf.element).outerHeight();
+			hthas.Inferences.push(inf);
+		}
+	},
+	
+	/**
 	 * Set up positioning for the black box.
 	 */
 	initializeStyles:function() {
-		// width for the black box and sentnences
-		var width = screen.width/4;
 		
 		// set up size of black box
 		$('.blackBox').css('height',screen.height/4 + 'px');
-		$('.blackBox').css('width',width + 'px');
+		$('.blackBox').css('width',hthas.sWidth + 'px');
 		//set up position of black box
 		$('.blackBox').css('left',screen.width/2 - screen.width/8+ 'px');
 		$('.blackBox').css('top',screen.height/2 + 'px');
+				
 		
-		$('.sentence').css('width',	width);
+		$('.sentence').css('width',	hthas.sWidth);
 	}
 	
 }

@@ -144,7 +144,7 @@ var SENTENCES =[
 "I've been using some of my meager budget to <span class='keyword'>acquire</span> most of the out of print books."
 ];
 
-var INF =[
+var INFERENCES =[
 "We need to distinguish the <span class='keyword'>event</span> from the timeline in order to catalog our history."
 ,
 "Remembering the <span class='keyword'>past</span> elicits fear of repetition."
@@ -158,7 +158,7 @@ var INF =[
 ,
 "Our <span class='keyword'>eyes</span> are only as intelligent as our way of looking."
 ,
-"When we perceive time as measured,<span class='keyword'>time</span> is differentiated."
+"When we perceive time as measured, <span class='keyword'>time</span> is differentiated."
 ,
 "We hold our <span class='keyword'>histories</span> and history holds us."
 ,
@@ -170,35 +170,6 @@ var INF =[
 ,
 "<span class='keyword'>Space</span> protects information; time retrieves clarity."
 ];
-
-var Pairs =[
-[
-6,13,1,false
-],[
-5,16,2,false
-],[
-1,18,3,false
-],[
-3,18,4,false
-],[
-1,26,5,false
-],[
-11,28,6,false
-],[
-29,20,7,false
-],[
-11,30,8,false
-],[
-33,0,9,false
-],[
-27,34,10,false
-],[
-39,28,11,false
-],[
-21,40,12,false
-]];
-
-
 
 
 

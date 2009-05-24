@@ -4,6 +4,7 @@
 html {
 	overflow: hidden;
 }
+
 body {
 	background-color: #FDFDF0;
 	background-image: url("../../images/paper.jpg");
@@ -28,6 +29,15 @@ body {
 	font-size:medium;
 	position:absolute;
 	width:100px;
+	z-index:1;
+}
+
+
+.inference {
+	color:#000000;
+	font-family:"Book Antiqua";
+	font-size:medium;
+	position:absolute;
 	z-index:1;
 }
 

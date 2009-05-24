@@ -1,6 +1,6 @@
 /**
- * A prototype for Sentence objects 
- * (i.e. a recipe for making a Sentence)
+ * A prototype for Inference objects 
+ * (i.e. a recipe for making an Inference)
  * args must be an object literal (i.e. a map of key:value pairs).
  * It supports the following keys:
  * text, position, type
@@ -19,14 +19,14 @@
  * @param {Object} args
  * @author yoni
  */
-Sentence = function(args){
+Inference = function(args){
 	//set the member values, according to the constructor parameters
 	this.text = args.text;
 	this.position = args.position;
 	this.type = args.type;
 
 	/***************************************************************
-	 * Set up document element for the Sentence
+	 * Set up document element for the Inference
 	 **************************************************************/
 	//create a document element that will hold our text on screen
 	this.element = document.createElement("span");
@@ -34,17 +34,12 @@ Sentence = function(args){
 	// set up the document element
 	this.element.id = args.id;
 	this.element.innerHTML = this.text;
-	this.element.className = "sentence";
-	this.element.style.display = 'inline';
+	this.element.className = "inference";
+	this.element.style.display = 'none';
 
 	//the initial position of the sentence on the screen
-	this.element.style.bottom = this.position.y;
-	if(this.type == 'left') {
-		this.element.style.left = this.position.x;
-	} else {
-		this.element.style.right = this.position.x;
-	}
+	this.element.style.top = this.position.y;
+	this.element.style.left = this.position.x;
 	//add element to the document
 	document.body.appendChild(this.element);
-}
-
+};
