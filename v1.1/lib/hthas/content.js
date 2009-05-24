@@ -139,9 +139,9 @@ var SENTENCES =[
 "Your influence on my vocabulary and diction is so immense that I have come to feel I can "+
 "<span class='keyword'>draw</span> liberally from the source without citation."
 ,
-"<span class='keyword'>Silence</span> was her only cruelty."
-,
 "I've been using some of my meager budget to <span class='keyword'>acquire</span> most of the out of print books."
+,
+"<span class='keyword'>Silence</span> was her only cruelty."
 ];
 
 var INFERENCES =[
