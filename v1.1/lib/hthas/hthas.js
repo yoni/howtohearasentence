@@ -62,26 +62,74 @@ var hthas = {
 	 */
 	handleSentenceAnimationEnd:function(sentenceId) {
 		// for each keyword in the sentence
-		
 		//TODO: add the keywords to the box instead of just changing their colors
 		$('#'+ sentenceId +' .keyword').each(
 			function() {
-				
 				var keyword = hthas.cleanKeyword(this.innerHTML);
-				
 				//place keyword in the box				
 				var kColor = hthas.keywordMap[keyword].color;
 				$(this).css(
 					{
 						'color':kColor,'font-size': '24px'
 					});
-				
-				//set this sentence as having arrived at the box
-				hthas.bBoxSentences[sentenceId] = true;
-				//check if all sentences realated to the keyword have made it to the box
-				var kSentences = hthas.keywordMap[keyword].sentences;
-				
+				hthas.handleArrival(sentenceId, keyword);
 			});
+	},
+	
+	/**
+	 * Acts on a sentence that has arrived in the box.
+	 */
+	handleArrival:function(sentenceId, keyword) {
+		//set this sentence as having arrived at the box
+		hthas.bBoxSentences[sentenceId] = true;
+		//check if all sentences realated to the keyword have made it to the box
+		if(hthas.areAllSentencesInBox(keyword)) {
+			hthas.queueKeywordInference(keyword);
+		}
+		else {
+			console.debug('Not all sentences in box for keyword' + keyword);
+		}			
+	},
+	
+	/**
+	 * Called when all sentences for a given keyword made it into the box
+	 * @param {Object} keyword
+	 */
+	queueKeywordInference:function(keyword) {
+		var sentenceIds = hthas.keywordMap[keyword].sentences.split(',');
+		var inferenceId = hthas.keywordMap[keyword].inference;
+		//not all keywords have an inference
+		if(inferenceId) {
+			//add a special class to these sentences so we can animate them all to the same position
+			for(var i = 0; i < sentenceIds.length; i++) {
+				var sentenceId = sentenceIds[i];
+				$('#' + sentenceId).addClass(inferenceId);
+			}
+			$('.' + inferenceId).animate(
+					{top:'30px'}, 
+					3000, 
+					'linear', 
+					function(){
+						$('#' + inferenceId).show({display:'inline'}, 1000);
+					});
+		}
+	},
+
+	/**
+	 * Checks if all sentences related to the keyword made it into the box
+	 * @param {Object} keyword
+	 */
+	areAllSentencesInBox:function(keyword) {
+		var sentenceIds = hthas.keywordMap[keyword].sentences.split(',');
+		var allInBox = true;
+		for(var i = 0; i < sentenceIds.length; i++) {
+			var sentenceId = sentenceIds[i];
+			console.debug('Checking if ' + sentenceId + ' is in the box');
+			if(!hthas.bBoxSentences[sentenceId]) {
+				allInBox = false;
+			}
+		}
+		return allInBox;
 	},
 	
 	/**
@@ -93,7 +141,6 @@ var hthas = {
 		keyword = keyword.toUpperCase();
 		keyword = keyword.replace(/S$/,''); //remove trailing s
 		keyword = keyword.replace(/ION$/,''); //remove trailing 'ion' (for 'suggestion')
-		
 		return keyword;
 	},
 	
@@ -106,16 +153,11 @@ var hthas = {
 		// a color
 		// an array of sentence ids which contain that keyword
 		hthas.keywordMap = {};
-		
 		$('.sentence').each(function(){
 			var sentence = this;
-			
 			$('#'+sentence.id + ' .keyword').each(function(){
-				
 				var keyword = this.innerHTML;
-
 				keyword = hthas.cleanKeyword(keyword);
-
 				if (!hthas.keywordMap[keyword]) {
 					hthas.keywordMap[keyword] = {sentences:'', color:hthas.getKeywordColor()};
 					hthas.keywordMap[keyword].sentences += sentence.id;
