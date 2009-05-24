@@ -43,6 +43,105 @@ var hthas = {
 	},
 	
 	/**
+	 * Sets the word to lower case and removes trailing 's'
+	 * @param keyword, a String
+	 * @return the String set to lower case and with no trailing 's'
+	 */
+	cleanKeyword:function(keyword) {
+		keyword = keyword.toUpperCase();
+		keyword = keyword.replace(/S$/,''); //remove trailing s
+		return keyword;
+	},
+	
+	/**
+	 * Map a given keyword to all of the Sentences that have that keyword
+	 */
+	mapKeywords:function() {
+		//set up a map to hold all of the keywords and assign them some useful values:
+		// a color
+		// an array of sentence ids which contain that keyword
+		
+		hthas.keywordMap = {};
+		
+		$('.sentence').each(function(){
+			var sentence = this;
+
+			$('#'+sentence.id + ' .keyword').each(function(){
+				var keyword = this.innerHTML;
+				keyword = hthas.cleanKeyword(keyword);
+				if(keyword=='prototype') {
+					alert(sentence.id);
+				}
+				if (!hthas.keywordMap[keyword]) {
+					hthas.keywordMap[keyword] = sentence.id;
+				}
+				else {
+					hthas.keywordMap[keyword] += ',' + sentence.id;
+				}
+			});
+		});
+		
+	/*
+	 * 
+1,18,3,false
+5,16,2,false
+27,34,10,false
+11,30,8,false
+1,26,5,false
+21,40,12,false
+3,18,4,false
+29,20,7,false
+33,0,9,false
+39,28,11,false
+
+[
+6,13,1,false (remove s)
+],[
+],[
+],[
+11,28,6,false (remove s)
+],[
+],[
+],[
+],[
+],[
+],[
+]];
+
+	 */
+		
+		/*
+		$('.keyword').each(function() {
+			hthas.keywordMap[this.innerHTML] = {sentences:'', color:''};
+		});
+		
+		for(var keyword in hthas.keywordMap) {
+			$('.sentence').each(function(){
+				var sentence = this;
+				$(sentence + ' .keyword').each(function(){
+					hthas.keywordMap[keyword].sentences += sentence.id + ',';
+				});
+			});
+		}
+		*/
+	},
+	
+	/**
+	 * Colors to be used for 'lighting up' keywords
+	 */
+	keywordColors:['#F08080','#DC132C','#EEB422','#0000FF',
+	'#FF8C00','#006400','#8B2323','#9932CC','#B8860B','#00008B',
+	'#B452CD','#2F4F4F'],
+	
+	/**
+	 * Returns the next available color from the array of possible keyword colors
+	 */
+	getKeywordColor:function(){
+		var color = hthas.keywordColors.pop();
+		return color;
+	},
+	
+	/**
 	 * Initializes sentence objects for later manipulation.
 	 * TODO:Consider doing this on the fly, so as to support new
 	 * sentences coming in live.

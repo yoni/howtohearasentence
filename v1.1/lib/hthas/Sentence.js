@@ -25,6 +25,9 @@ Sentence = function(args){
 	this.position = args.position;
 	this.type = args.type;
 
+	/***************************************************************
+	 * Set up document element for the Sentence
+	 **************************************************************/
 	//create a document element that will hold our text on screen
 	this.element = document.createElement("span");
 	
@@ -41,7 +44,6 @@ Sentence = function(args){
 	} else {
 		this.element.style.right = this.position.x;
 	}
-	
+	//add element to the document
 	document.body.appendChild(this.element);
-
 }
