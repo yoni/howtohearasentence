@@ -7,10 +7,12 @@ var hthas = {
 	//These arraya will hold our Sentence and Inference objects, arranged in order
 	Sentences:[],
 	Inferences:[],
+	InferenceMap:{},
 	// the inde of the next sentence to animate in
 	sentenceQueue:0,
 	// holds sentence ids for those sentences that made it to the black box
 	bBoxSentences:{},
+	bBoxKeywords:{},
 	/**
 	 * On each spacebar press, we queue in the next sentence.
 	 * @param {Object} eventObject
@@ -61,6 +63,8 @@ var hthas = {
 	 * Called when the sentence animation ends, and the sentence is in the box.
 	 */
 	handleSentenceAnimationEnd:function(sentenceId) {
+		$('#'+ sentenceId).hide();
+
 		// for each keyword in the sentence
 		//TODO: add the keywords to the box instead of just changing their colors
 		$('#'+ sentenceId +' .keyword').each(
@@ -68,50 +72,81 @@ var hthas = {
 				var keyword = hthas.cleanKeyword(this.innerHTML);
 				//place keyword in the box				
 				var kColor = hthas.keywordMap[keyword].color;
-				$(this).css(
-					{
-						'color':kColor,'font-size': '24px'
+				var kElement = document.createElement('span');
+				var word = this.innerHTML+' ';     
+				$(kElement).html(word).css({
+						'color':kColor,'font-size': '19px',
 					});
+				//put sentence in the box
+				$('.blackBox').append(kElement);
 				hthas.handleArrival(sentenceId, keyword);
+				//set this sentence as having arrived at the box
+				hthas.bBoxSentences[sentenceId] = true;
+				//check if all sentences realated to the keyword have made it to the box
+				if(hthas.areAllSentencesInBox(keyword)) {
+					hthas.queueKeywordInference(keyword);
+				}
+				else {
+					console.debug('Not all sentences in box for keyword' + keyword);
+				}
 			});
 	},
 	
 	/**
-	 * Acts on a sentence that has arrived in the box.
-	 */
-	handleArrival:function(sentenceId, keyword) {
-		//set this sentence as having arrived at the box
-		hthas.bBoxSentences[sentenceId] = true;
-		//check if all sentences realated to the keyword have made it to the box
-		if(hthas.areAllSentencesInBox(keyword)) {
-			hthas.queueKeywordInference(keyword);
-		}
-		else {
-			console.debug('Not all sentences in box for keyword' + keyword);
-		}			
-	},
-	
-	/**
 	 * Called when all sentences for a given keyword made it into the box
+	 * TODO: break this function up
 	 * @param {Object} keyword
 	 */
 	queueKeywordInference:function(keyword) {
 		var sentenceIds = hthas.keywordMap[keyword].sentences.split(',');
 		var inferenceId = hthas.keywordMap[keyword].inference;
-		//not all keywords have an inference
-		if(inferenceId) {
+		
+		if(inferenceId) { //not all keywords have an inference
+			var bbPosition = $('.blackBox').position();
+			
+			// animate sentences so they leave the box
+			
 			//add a special class to these sentences so we can animate them all to the same position
 			for(var i = 0; i < sentenceIds.length; i++) {
 				var sentenceId = sentenceIds[i];
-				$('#' + sentenceId).addClass(inferenceId);
+				var leftPos;
+				var topPos;
+				if(i%2) {
+					leftPos = bbPosition.left - sWidth * i;
+				} else {
+					leftPos = bbPosition.left + sWidth + sWidth * i;
+				}
+				topPos = bbPosition.top - 2 * sWidth * i;
+				$('#' + sentenceId)
+					.animate({top:topPos + 'px', left:leftPos + 'px'});
+	
+				//$('#' + sentenceId).addClass(inferenceId);
 			}
-			$('.' + inferenceId).animate(
-					{top:'30px'}, 
-					3000, 
-					'linear', 
-					function(){
-						$('#' + inferenceId).show({display:'inline'}, 1000);
-					});
+			
+			var iPos = hthas.InferenceMap[inferenceId].position;
+			// animate inference
+			$('#' + inferenceId).animate({
+				top:iPos.top+'px',
+				left:iPos.left + 'px',
+				display:'inline'
+				}, 
+				1000);
+				
+			//make box go white and back to black
+			$('.blackBox')
+				.animate(
+					{
+						'background-color':'white',
+						'z-index':'2'
+					}, 
+					1000)
+				.animate(
+					{
+						'background-color':'black',
+						'z-index':'0'
+					}, 
+					500
+					);
 		}
 	},
 
@@ -175,17 +210,13 @@ var hthas = {
 				var keyword = this.innerHTML;
 				keyword = hthas.cleanKeyword(keyword);
 				hthas.keywordMap[keyword].inference = inference.id;
+				//assign the color
+				$(this).css({color:hthas.keywordMap[keyword].color});
 			});
 		});
 		
 	},
 	
-	/**
-	 * Colors to be used for 'lighting up' keywords
-	 */
-	keywordColors:['#F08080','#DC132C','#EEB422','#0000FF',
-	'#FF8C00','#006400','#8B2323','#9932CC','#B8860B','#00008B',
-	'#B452CD','#2F4F4F'],
 	
 	/**
 	 * Returns the next available color from the array of possible keyword colors
@@ -193,9 +224,9 @@ var hthas = {
 	getKeywordColor:function(){
 		
 		//for now, just getting a random color. need to change this.
-		var rand = Math.random()*hthas.keywordColors.length;
+		var rand = Math.random()*keywordColors.length;
 		rand = Math.floor(rand);
-		return hthas.keywordColors[rand];;
+		return keywordColors[rand];;
 	},
 	
 	/**
@@ -237,6 +268,7 @@ var hthas = {
 			args.id = 'inference'+i;
 			var inf = new Inference(args);
 			nextInfY += $(inf.element).outerHeight();
+			hthas.InferenceMap[args.id] = inf;
 			hthas.Inferences.push(inf);
 		}
 	},
@@ -245,16 +277,19 @@ var hthas = {
 	 * Set up positioning for the black box.
 	 */
 	initializeStyles:function() {
-		
+		var bbLeft = screen.width/2 - screen.width/8;
+		var bbTop = screen.height/2.5;
 		// set up size of black box
-		$('.blackBox').css('height',screen.height/4 + 'px');
+		$('.blackBox').css('height',screen.height/2.2 + 'px');
 		$('.blackBox').css('width',hthas.sWidth + 'px');
 		//set up position of black box
-		$('.blackBox').css('left',screen.width/2 - screen.width/8+ 'px');
-		$('.blackBox').css('top',screen.height/2 + 'px');
-				
+		$('.blackBox').css('left',bbLeft + 'px');
+		$('.blackBox').css('top',bbTop + 'px');
 		
 		$('.sentence').css('width',	hthas.sWidth);
+		//inferences start from the box and animate up
+		$('.inference').css({top:bbTop+'px',left:bbLeft + 'px'});
+		
 	}
 	
 }
