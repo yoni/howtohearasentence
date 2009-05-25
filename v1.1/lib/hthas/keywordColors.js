@@ -1,8 +1,8 @@
 
-	/**
-	 * Colors to be used for 'lighting up' keywords
-	 */
-	var keywordColors=[
+/**
+ * Colors to be used for 'lighting up' keywords
+ */
+var keywordColors=[
 	'#F08080',
 	'#DC132C',
 	'#EEB422',
@@ -27,7 +27,6 @@
 	'#FCB4D5',
 	'#AAF0D1',
 	'#FF8243',
-	'#FFA343',
 	'#FC74FD',
 	'#7442C8',
 	'#FF00CC',
@@ -37,12 +36,10 @@
 	'#6495ED',
 	'#654321',
 	'#03C03C',
-	'#E9967A',
 	'#1560BD',
 	'#50C878',
 	'#801818',
 	'#B22222',
-	'#FFD700',
 	'#996515',
 	'#DF73FF',
 	'#FF4F00',

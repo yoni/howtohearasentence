@@ -37,6 +37,7 @@ var hthas = {
 	 */
 	endPresentation:function() {
 		//do something?
+		
 	},
 	
 	/**
@@ -51,7 +52,7 @@ var hthas = {
 		$('#'+sentenceId).animate({
 				left:bbPosition.left + 'px', 
 				top:bbPosition.top + 'px'}, 
-				10000,
+				20000,
 				'linear', 
 				function(){
 					hthas.handleSentenceAnimationEnd(sentenceId);
@@ -65,8 +66,7 @@ var hthas = {
 	handleSentenceAnimationEnd:function(sentenceId) {
 		$('#'+ sentenceId).hide();
 
-		// for each keyword in the sentence
-		//TODO: add the keywords to the box instead of just changing their colors
+		// for each keyword in the sentence we add it to the box and 
 		$('#'+ sentenceId +' .keyword').each(
 			function() {
 				var keyword = hthas.cleanKeyword(this.innerHTML);
@@ -80,17 +80,17 @@ var hthas = {
 					});
 
 				//put sentence in the box
-				$('.blackBox').append(kElement);
-
+				var bounceOptions = {};
+				$('.blackBox')
+					.append(kElement);
+					//.effect('bounce',bounceOptions,500);
+				
 				//set this sentence as having arrived at the box
 				hthas.bBoxSentences[sentenceId] = true;
 
 				//check if all sentences realated to the keyword have made it to the box
 				if(hthas.areAllSentencesInBox(keyword)) {
 					hthas.queueKeywordInference(keyword);
-				}
-				else {
-					//console.debug('Not all sentences in box for keyword' + keyword);
 				}
 			});
 	},
@@ -103,7 +103,7 @@ var hthas = {
 	queueKeywordInference:function(keyword) {
 		var sentenceIds = hthas.keywordMap[keyword].sentences.split(',');
 		var inferenceId = hthas.keywordMap[keyword].inference;
-		
+		var kColor = hthas.keywordMap[keyword].color;
 		if(inferenceId) { //not all keywords have an inference
 			var bbPosition = $('.blackBox').position();
 			//animateSentences(sentenceIds);
@@ -114,29 +114,13 @@ var hthas = {
 				.css({width:'10px'})
 				.show()
 				.animate({top:iPos.top, left:iPos.left, width:screen.width*3/4+'px'}, 2000);
-				//.animate({
-					//top:iPos.top+'px',
-					//left:iPos.left + 'px'
-					//}, 
-					//1000);
-				
-			//make box go white and back to black
+			
+			//animate box color to the keyword color and back again
 			$('.blackBox')
-				.animate(
-					{
-						'background-color':'white',
-						'z-index':'2'
-					}, 
-					1000,
-					'linear', 
+				.animate({'backgroundColor': kColor,'z-index': '2'}, 
+					1000,'linear', 
 					function(){
-						$(this).animate(
-							{
-								'background-color':'black',
-								'z-index':'0'
-							}, 
-							500
-							);
+						$(this).animate({'backgroundColor':'black','z-index':'0'}, 500);
 					});
 		}
 	},
