@@ -37,9 +37,6 @@ Inference = function(args){
 	this.element.className = "inference";
 	this.element.style.display = 'none';
 
-	//the initial position of the sentence on the screen
-	this.element.style.top = this.position.y;
-	this.element.style.left = this.position.x;
 	//add element to the document
 	document.body.appendChild(this.element);
 };
