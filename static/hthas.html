@@ -2,7 +2,19 @@
 <head>
 <title>HTHAS</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--
+How To Hear A Sentence
 
+Copyright:
+Yoni Ben-Meshulam
+Marisa Plumb
+
+Dojo GFX documentation:
+http://api.dojotoolkit.org/jsdoc/1.3/dojox.gfx
+
+Project site:
+http://www.marisaplumb.com/ongoing
+-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.3.1/dojo/dojo.xd.js" djConfig="isDebug: true"></script>
 <!-- Load static sentences -->
 <script type="text/javascript" src="http://omnib.in/hthas/sentences.js"></script>
@@ -18,12 +30,12 @@ var surfaceHeight = window.innerHeight - 20;
 /**
  * Set up our canvas with two axes and a green background.
  */
-var rect, surface, verticalAxis, horizontalAxis;
+var surface, backgroundBox, verticalAxis, horizontalAxis, poemBox;
 var makeShapes = function(){
 	//create the surface
 	surface = dojox.gfx.createSurface("test", surfaceWidth, surfaceHeight);
 	//set a green background
-	rect = surface.createRect({x: 0, y:0, width: surfaceWidth, height: surfaceHeight}).
+	backgroundBox = surface.createRect({x: 0, y:0, width: surfaceWidth, height: surfaceHeight}).
 		setFill("green");
 	//set up the x/y axes
 	verticalAxis = surface.createLine({x1:0, y1:0, x2:0, y2:surfaceHeight}).setStroke({color: "black",
@@ -32,6 +44,12 @@ var makeShapes = function(){
 	horizontalAxis = surface.createLine({x1:0, y1:surfaceHeight, x2:surfaceWidth, y2:surfaceHeight}).setStroke({color: "black",
 			width: 8,
 			join: "round"});
+	
+	//set up an area for the poem
+	poemBox = surface.createRect({x: 0, y:surfaceHeight-surfaceHeight/4, 
+		   width: surfaceWidth/4, height: surfaceHeight/4}).
+		setFill("#6666ff");
+
 };
 /**
  * Animate axes.
@@ -60,7 +78,7 @@ var animateStroke = function(){
 var animateFill = function(){
 	var anim = dojox.gfx.fx.animateFill({
 		duration:	5000,
-		shape: 		rect,
+		shape: 		backgroundBox,
 		color:		{start: "yellow", end: "blue"}
 	});
 	anim.play();
@@ -102,7 +120,7 @@ var createSentence = function(args){
 	
 	//graphics functions
 	this.loadSentence = function(){
-		this.surfaceElement = surface.createText({x: this.posStart.x, y: this.posStart.y, text: this.text, width:"100px", align: "right"})
+		this.surfaceElement = surface.createText({x: this.posStart.x, y: this.posStart.y, text: this.text, align: "right"})
 	 		.setFill("black").setFont({family: "serif", size: "10pt"});
 	}
 	
@@ -155,6 +173,19 @@ var addSentence = function(){
 	}
 }
 
+var poemSentence;
+function addPoem(){
+	poemSentence = surface.createText({
+		x: 100,
+		y: 100,
+		text: "A poem lies here. In fact, it's a ver very very long poem that has lots and lots of text. I'm not sure why it's so long, but it better be good. If it's no good, we'll just have to make a better, longer one.",
+		align: "right"
+	}).setFill("black").setFont({
+		family: "serif",
+		size: "10pt",
+		width: "100px"
+	});
+}
 /**
  * Helper function for getting a random point on the surface.
  */
@@ -180,6 +211,7 @@ function controller(event) {
 }
 
 dojo.addOnLoad(makeShapes);
+dojo.addOnLoad(addPoem);
 dojo.connect(window, 'onkeypress', null, controller);
 </script>
 

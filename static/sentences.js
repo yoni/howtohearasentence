@@ -57,29 +57,29 @@ var sentences = [
 
 var inferences = {
 	"inferences": [{
-		"inference": "We need to distinguish the event from the timeline in order to catalog our history."
+		"text": "We need to distinguish the event from the timeline in order to catalog our history."
 	}, {
-		"inference": "Remembering the past elicits fear of repetition."
+		"text": "Remembering the past elicits fear of repetition."
 	}, {
-		"inference": "Any singular piece of knowledge is determined by many avenues of inquiry."
+		"text": "Any singular piece of knowledge is determined by many avenues of inquiry."
 	}, {
-		"inference": "Our tools for discovering facts and poetics represent the potential of suggestion rather than the potential of certainty."
+		"text": "Our tools for discovering facts and poetics represent the potential of suggestion rather than the potential of certainty."
 	}, {
-		"inference": "To start is to start over."
+		"text": "To start is to start over."
 	}, {
-		"inference": "Our eyes are only as intelligent as our way of looking."
+		"text": "Our eyes are only as intelligent as our way of looking."
 	}, {
-		"inference": "When we perceive time as measured,time is differentiated."
+		"text": "When we perceive time as measured,time is differentiated."
 	}, {
-		"inference": "We hold our histories and history holds us."
+		"text": "We hold our histories and history holds us."
 	}, {
-		"inference": "The mind generates its own assumptions."
+		"text": "The mind generates its own assumptions."
 	}, {
-		"inference": "Serious shit comes up at night."
+		"text": "Serious shit comes up at night."
 	}, {
-		"inference": "We tend to believe that helps agency originates outside the self."
+		"text": "We tend to believe that helps agency originates outside the self."
 	}, {
-		"inference": "Space protects information; time retrieves clarity."
+		"text": "Space protects information; time retrieves clarity."
 	}]
 };
 
