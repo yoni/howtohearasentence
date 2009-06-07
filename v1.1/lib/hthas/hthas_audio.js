@@ -25,10 +25,8 @@ function createPlayer() {
  * We attached this listener to the player. It receives the time info every 1/10 of a second.
  * @param {duration:'a number',position:'a number'}
  */
-var count = 0;
 function timeListener(obj) {
 	if(queue[obj.position]) {
-		count++;
 		hthas.queueNextSentence();
 	}
 }
@@ -96,6 +94,7 @@ var rawQueueTimes = [
 '17:51',
 '18:10',
 '18:30'];
+
 
 // Contains the position in seconds for queueing the sentences
 var queue = [];

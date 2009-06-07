@@ -35,12 +35,14 @@
 			
 			function renderPopUp(){
 				// Attach click event to the link in the popup so it calls the 'start' function.
-		        $('.popUpClose').click(start);
+		        //$('.popUpClose').click(start);
+				$('.popUpClose').closeDOMWindow({eventType:'click'}); 
 				
 		        $.openDOMWindow({ 
 		            height:210,
 		            width:480,
-		            positionType:'absolute', 
+		            eventType:'click',
+					positionType:'absolute', 
 		            positionLeft:0,
 		            positionTop:0,
 		            positionType:'centered',
@@ -49,7 +51,6 @@
 			}
 			
 			function start() {
-				$.closeDOMWindow();
 				player.sendEvent('PLAY');
 			}
 			
