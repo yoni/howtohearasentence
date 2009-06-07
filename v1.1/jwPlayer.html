@@ -1,18 +1,46 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<html>    
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-		<title>Untitled Document</title>
-		<script type="text/javascript" src="lib/mediaplayer/swfobject.js"></script>
-		<script type="text/javascript">
-			var player;
-			function playerReady(obj) {
-				alert('the videoplayer '+obj['id']+' has been instantiated');
-				player = document.getElementById(obj['id']);
-			};
-		</script>
-	</head>
-	<body>
-		<embed id="myplayer" name="myplayer" src="lib/mediaplayer/player.swf" width="400" height="200" />
-	</body>
+        <title>JW API Example 1-1-1-0 - JW FLV Media Player</title>
+        <style type="text/css">
+            #wrapper { position:absolute; left:64px; top:128px; width:320px; height:196px; background-color:#CCCC00; }
+        </style>
+        <script type="text/JavaScript" src="lib/swfobject/swfobject.js"></script>
+        <script type="text/JavaScript">
+
+        function createPlayer() {
+            var flashvars = {
+                    file:"http://omnib.in/hthas/v1.1/audio/we_record_on_monday4.mp3", 
+                    autostart:"false"
+            }
+            var params = {
+                    allowfullscreen:"true", 
+                    allowscriptaccess:"always"
+            }
+            var attributes = {
+                    id:"player1",  
+                    name:"player1"
+            }
+            swfobject.embedSWF("lib/mediaplayer/player.swf", "placeholder1", "320", "196", "9.0.115", false, flashvars, params, attributes);
+        }
+		var pos;
+		function timeListener(obj) {
+			pos = obj;
+		}
+		
+		var player = null;
+		function playerReady(thePlayer) {
+			player = document.getElementById(thePlayer.id);
+			player.addModelListener('TIME','timeListener'); 
+		}
+		
+
+        </script>
+    <head>
+    <body onload="createPlayer();">
+    	<a href="JavaScript:player.sendEvent('PLAY')">play/pause toggle</a>
+            <div id="wrapper">
+                <div id="placeholder1"></div>
+            </div>
+    </body>
 </html>
