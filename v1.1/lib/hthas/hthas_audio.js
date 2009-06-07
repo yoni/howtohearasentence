@@ -1,8 +1,17 @@
 /**
- * Handles all of the audio manupulation and sentence queueing
+ * Handles loading of the audio player and using the position
+ * to queue sentences.
  * 
  * @author yoni.ben-meshulam
  */
+// the positions in the audio file that have keywords
+var queuePositions = [15,20,25,30,35,40,45,50,55,60];
+var queue = [];
+for(var i in queuePositions) {
+	queue[queuePositions[i]] = true;
+}
+
+
 
 function createPlayer() {
     var flashvars = {
@@ -21,12 +30,12 @@ function createPlayer() {
 }
 
 /**
- * 
+ * We attachd this listener to the player. It receives the time info every 1/10 of a second.
  * @param {duration:'a number',position:'a number'}
  */
 function timeListener(obj) {
-	if(obj.position == 15) {
-		alert('15!');
+	if(queue[obj.position]) {
+		hthas.queueNextSentence();
 	}
 }
 
