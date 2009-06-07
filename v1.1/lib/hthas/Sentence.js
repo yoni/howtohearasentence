@@ -28,7 +28,7 @@ Sentence = function(args){
 	/***************************************************************
 	 * Set up document element for the Sentence
 	 **************************************************************/
-	//create a document element that will hold our text on screen
+	//create a document element that will contain our text on screen
 	this.element = document.createElement("span");
 	
 	// set up the document element
