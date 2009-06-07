@@ -21,10 +21,10 @@
 		<script type="text/javascript">
 			function initialize() {
 				//put all intialization code here
-				$(window).bind('keypress', hthas.handleKeypress);
+				//$(window).bind('keypress', hthas.handleKeypress);
+				
 				hthas.initializeSentences();
 				hthas.initializeInferences();
-				
 				hthas.mapKeywords();
 				hthas.initializeStyles();
 				
@@ -50,6 +50,7 @@
 			
 			function start() {
 				$.closeDOMWindow();
+				player.sendEvent('PLAY');
 			}
 			
 		</script>
