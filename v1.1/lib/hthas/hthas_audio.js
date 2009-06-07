@@ -33,7 +33,7 @@ function timeListener(obj) {
 	}
 }
 function bufferListener(obj) {
-	$("#buffer").innerHTML = "Thanks for waiting. The buffer is full.";
+	$("#buffer").html("Thanks for waiting. The buffer is full.");
 }
 
 var player = null;
