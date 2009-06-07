@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<playlist version="1">
+<title>Sample XSPF Playlist</title>
+
+<info>
+http://www.jeroenwijering.com/?item=Flash_Media_Player
+</info>
+
+<annotation>
+Sample playlist for the media player in XSPF format
+</annotation>
+
+<trackList>
+
+<track>
+<title>How to hear a sentence.</title>
+<creator>Maris Plumb, Ira S Murfin</creator>
+<location>audio/we_record_on_monday4.mp3</location>
+</track>
+
+</trackList>
+</playlist>
