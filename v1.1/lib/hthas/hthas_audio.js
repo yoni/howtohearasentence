@@ -4,14 +4,6 @@
  * 
  * @author yoni.ben-meshulam
  */
-// the positions in the audio file that have keywords
-var queuePositions;
-// the positions in the audio file that have keywords
-var queuePositions = [15,20,25,30,35,40,45,50,55,60];
-var queue = [];
-for(var i in queuePositions) {
-	queue[queuePositions[i]] = true;
-}
 function createPlayer() {
     var flashvars = {
             file:"http://omnib.in/hthas/v1.1/audio/we_record_on_monday4.mp3", 
@@ -42,4 +34,69 @@ var player = null;
 function playerReady(thePlayer) {
 	player = document.getElementById(thePlayer.id);
 	player.addModelListener('TIME','timeListener'); 
+}
+
+// The raw times that the keywords are spoken in the text
+var rawQueueTimes = [
+'00:13',
+'00:52',
+'01:03',
+'01:10',
+'01:37',
+'01:56',
+'02:07',
+'02:20',
+'02:40',
+'02:47',
+'03:13',
+'03:46',
+'03:55',
+'04:24',
+'04:35',
+'04:40',
+'05:36',
+'05:47',
+'06:47',
+'07:00',
+'07:11',
+'07:16',
+'07:56',
+'08:09',
+'10:35',
+'10:47',
+'11:20',
+'11:32',
+'11:50',
+'12:07',
+'12:40',
+'12:46',
+'12:56',
+'13:17',
+'14:12',
+'14:38',
+'15:05',
+'15:14',
+'15:39',
+'15:46',
+'15:53',
+'16:27',
+'16:35',
+'16:52',
+'17:03',
+'17:17',
+'17:40',
+'17:51',
+'18:10',
+'18:30'];
+
+// Contains the position in seconds for queueing the sentences
+var queue = [];
+for(var i in rawQueueTimes) {
+	var rawTime = rawQueueTimes[i];
+	var minStr=rawTime.split(":")[0];
+	var secStr=rawTime.split(":")[1];
+	var minNum = Number(minStr);
+	var secNum = Number(secStr);
+	var totalSecs = minNum*60 + secNum;
+	queue[totalSecs] = true;
 }
