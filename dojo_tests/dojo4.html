@@ -14,68 +14,28 @@
 dojo.require("dojox.gfx");
 dojo.require("dojox.gfx.fx");
 dojo.require("dojo.colors");
-
-function getBrowserWindowSize()
-{
-var myWidth = 0, myHeight = 0;
-if( typeof( window.innerWidth ) == 'number' )
-{
-//IE requires more code doncha know
-myWidth = window.innerWidth;
-myHeight = window.innerHeight;
-}
-
-return {width:myWidth, height:myHeight};
-}
-
-var browserWindowSize = getBrowserWindowSize();
-
 var rect, text;
 
 var makeShapes = function(){
-	surface = dojox.gfx.createSurface("test", window.innerWidth-40, window.innerHeight);
-	rect = surface.createRect({x: 20, y:-10, width: window.innerWidth-40, height: window.innerHeight}).
-		setFill("green").setStroke({
-			color: "black",
+	var surface = dojox.gfx.createSurface("test", 500, 500);
+	rect = surface.createRect({x: 100, y: 100, width: 300, height: 300}).
+		setFill("yellow").setStroke({
+			color: "green",
 			width: 5,
 			join: "round"
 		});
+	text = surface.createText({x: 250, y: 250, text: "Hello!", align: "middle"})
+		.setFill("black").setFont({family: "serif", size: "10pt"});
 };
 
-var sentenceProto = function(){
-	this.id = 0;
-	this.text="The default text";
-	
-	this.posStart = {
-		x: window.innerWidth-150, y:window.innerHeight-150
-	}
-	this.posMid = {
-		x: 300, y: 650
-	}
-	this.posEnd = {
-		x: 300, y: 400
-	}
-	this.loadSentence = function(){
-		this.surfaceElement = surface.createText({x: this.posStart.x, y: this.posStart.y, text: this.text, align: "right"})
-	 		.setFill("black").setFont({family: "serif", size: "10pt"});
-	}
-	
-}
-
 dojo.addOnLoad(makeShapes);
-
-var sentence1 = new sentenceProto();
-sentence1.text = sentences[0].sentence;
-sentence1.id = 1;
-
-                  
 
 var animateStroke = function(){
 	var anim = dojox.gfx.fx.animateStroke({
 		duration:	5000,
 		shape: 		rect,
-		color:		{start: "white", end: "gray"},
-		width:		{start: 5, end: 5},
+		color:		{start: "green", end: "red"},
+		width:		{start: 5, end: 15},
 		join:		{values: ["bevel", "round"]}
 	});
 	dojo.byId("stroke").disabled = "disabled";
@@ -96,10 +56,10 @@ var animateFill = function(){
 
 var animateFont = function(){
 	var anim = dojox.gfx.fx.animateFont({
-		duration:	5000,
-		shape: 		text,
-		variant:	{values: ["normal", "small-caps"]},
-		size:		{start: 10, end: 50, units: "pt"}
+	    shape: text,
+	    duration: 500,
+	    variant: {values: ["normal", "small-caps"]},
+	    size:  {end: 10, unit: "pt"}
 	});
 	dojo.byId("font").disabled = "disabled";
 	dojo.connect(anim, "onEnd", function(){ dojo.byId("font").disabled = ""; });
@@ -111,7 +71,8 @@ var animateTransform = function(){
 		duration:	5000,
 		shape: 		text,
 		transform:	[
-			{name: "translate", start: [0, 0], end: [-400, 0]}
+			{name: "rotategAt", start: [0, 250, 250], end: [360, 350, 350]},
+			{name: "translate", start: [0, 0], end: [100, 100]}
 		]
 	});
 	dojo.byId("transform").disabled = "disabled";
@@ -122,17 +83,19 @@ var animateTransform = function(){
 
 </head>
 <body>
+<h1>Testing animation</h1>
 <p>
-	<button id="sentence" onclick="sentence1.loadSentence();">Load Sentence</button>
-	&nbsp;
 	<button id="stroke" onclick="animateStroke();">Stroke</button>
 	&nbsp;
 	<button id="fill" onclick="animateFill();">Fill</button>
 	&nbsp;
 	<button id="font" onclick="animateFont();">Font</button>
+
 	&nbsp;
 	<button id="transform" onclick="animateTransform();">Transform</button>
 </p>
-<div id="test" style="width: window.innerWidth; height: window.innerHeight;"></div>
+<div id="test" style="width: 500px; height: 500px;"></div>
+<p>That's all Folks!</p>
 </body>
+
 </html>
