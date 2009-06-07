@@ -12,7 +12,7 @@ function createPlayer() {
     var params = {
             allowfullscreen:"true",
             allowscriptaccess:"always",
-			bufferlength:"30"
+			bufferlength:"3100"
     }
     var attributes = {
             id:"player1",  
