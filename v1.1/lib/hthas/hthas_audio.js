@@ -10,7 +10,7 @@ function createPlayer() {
             autostart:"false"
     }
     var params = {
-            allowfullscreen:"true", 
+            allowfullscreen:"true",
             allowscriptaccess:"always",
 			bufferlength:"30"
     }
@@ -32,11 +32,15 @@ function timeListener(obj) {
 		hthas.queueNextSentence();
 	}
 }
+function bufferListener(obj) {
+	$("#buffer").innerHTML = "Thanks for waiting. The buffer is full.";
+}
 
 var player = null;
 function playerReady(thePlayer) {
 	player = document.getElementById(thePlayer.id);
 	player.addModelListener('TIME','timeListener'); 
+	player.addModelListener('BUFFER','bufferListener');
 }
 
 // The raw times that the keywords are spoken in the text

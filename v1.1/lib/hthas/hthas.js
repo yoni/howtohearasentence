@@ -127,17 +127,21 @@ var hthas = {
 	 * the black box.
 	 */
 	queueNextSentence:function() {
-		var bbPosition = $('.blackBox').position();
-		var sentenceId = hthas.Sentences[hthas.sentenceQueue].element.id;
-		$('#'+sentenceId).animate({
-				left:bbPosition.left + 'px', 
-				top:bbPosition.top + 'px'}, 
-				25000,
-				'linear', 
-				function(){
-					hthas.handleSentenceAnimationEnd(sentenceId);
-				});
-		hthas.sentenceQueue++;
+		if (hthas.sentenceQueue < hthas.Sentences.length) {
+		
+			var bbPosition = $('.blackBox').position();
+			var sentenceId = hthas.Sentences[hthas.sentenceQueue].element.id;
+			$('#' + sentenceId).animate({
+				left: bbPosition.left + 'px',
+				top: bbPosition.top + 'px'
+			}, 25000, 'linear', function(){
+				hthas.handleSentenceAnimationEnd(sentenceId);
+			});
+			hthas.sentenceQueue++;
+		}
+		else {
+			hthas.endPresentation();
+		}
 	},
 	
 	/**
