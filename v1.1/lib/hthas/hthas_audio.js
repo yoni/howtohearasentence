@@ -98,5 +98,6 @@ for(var i in rawQueueTimes) {
 	var minNum = Number(minStr);
 	var secNum = Number(secStr);
 	var totalSecs = minNum*60 + secNum;
+	totalSecs += '';
 	queue[totalSecs] = true;
 }
