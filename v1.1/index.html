@@ -36,12 +36,12 @@
 			function renderPopUp(){
 				// Attach click event to the link in the popup so it calls the 'start' function.
 		        //$('.popUpClose').click(start);
-				$('.popUpClose').closeDOMWindow({eventType:'click'}); 
-				
-		        $.openDOMWindow({ 
+				//$('.popUpClose').closeDOMWindow({eventType:'click'}); 
+				$('.popUpClose').closeDOMWindow({anchoredClassName:'popUpClass',eventType:'click'}); 
+		        
+				$.openDOMWindow({ 
 		            height:210,
 		            width:480,
-		            eventType:'click',
 					positionType:'absolute', 
 		            positionLeft:0,
 		            positionTop:0,
@@ -64,12 +64,27 @@
             <div id="placeholder1"></div>
         </div>
 	    
-		<div id="popUp">
+		<div id="popUp" class="popUpClass">
 	        <h3>How to hear a sentence.</h3>
 			<img class="wait" src="images/spinning-wait-icons/wait30trans.gif" />
 	        <a href="javascript:void(0)" title="Close this Window and start the show." class="popUpClose">Start</a>
     	</div>
-		<div id="buffer">Please wait for the buffer to load.</div>
-    
+    <p><a href="#inlineContentExample5" class="example5DOMWindow">Open DOM Window</a> | <a href="#inlineContent" class="example5closeDOMWindow">Close DOM Window</a></p> 
+<script type="text/javascript"> 
+$('.example5DOMWindow').openDOMWindow({ 
+		            height:210,
+		            width:480,
+					//anchoredClassName:'exampleWindow6',
+					eventType:'click', 
+					//overlay:1,
+					positionType:'absolute', 
+		            positionLeft:0,
+		            positionTop:0,
+		            positionType:'centered',
+					borderColor:'#990000' 
+				}); 
+//$('.example5closeDOMWindow').closeDOMWindow({eventType:'click'}); 
+</script> 
+<div id="inlineContentExample5" style="display: none;"><p>Example 5 window.</p></div>
     </body>
 </html>
