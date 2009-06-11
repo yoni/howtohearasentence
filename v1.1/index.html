@@ -27,8 +27,9 @@
 				hthas.initializeInferences();
 				hthas.mapKeywords();
 				hthas.initializeStyles();
-				//player.sendEvent('PLAY');
-				//player.sendEvent('PAUSE');
+				
+				player.sendEvent('PLAY');
+				setTimeout("player.sendEvent('PAUSE')", 1000);
 				
 				hthas.audio.createPlayer();
 				
