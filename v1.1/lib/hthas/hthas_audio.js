@@ -26,7 +26,7 @@ function createPlayer() {
  * @param {duration:'a number',position:'a number'}
  */
 function timeListener(obj) {
-	if(queue[obj.position]) {
+	if(queue[obj.position] && queue[obj.position].set) {
 		queue[obj.position].set = false; //make sure it isn't called twice
 		console.debug(keyword + " queued");
 		hthas.queueNextSentence();
