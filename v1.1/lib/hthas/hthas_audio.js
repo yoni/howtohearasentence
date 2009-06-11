@@ -31,9 +31,9 @@ createPlayer:function() {
 timeListener:function(obj) {
 	var playTime = Math.floor(obj.position);
 	if(hthas.audio.queue[playTime] && hthas.audio.queue[playTime].set) {
-		hthas.audio.queue[playTime].set = false; //make sure it isn't called twice
-		console.debug(keyword + " queued at time " + playTime);
 		hthas.queueNextSentence();
+		hthas.audio.queue[playTime].set = false; //make sure it isn't called twice
+		console.debug(hthas.audio.queue[playTime].keyword + " queued at time " + playTime);
 	}
 },
 
