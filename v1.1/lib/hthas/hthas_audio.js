@@ -167,13 +167,3 @@ for(var i in hthas.rawQueueTimes) {
 		keyword:rawKeyword, set: true
 	};
 }
-/**
- * Global function called by the audio player when it's initialized
- * @param {Object} thePlayer
- */
-function playerReady(thePlayer) {
-	console.debug("Player " + thePlayer + " ready.");
-	hthas.audio.player = document.getElementById(thePlayer.id);
-	hthas.audio.player.addModelListener('TIME','hthas.audio.timeListener'); 
-	hthas.audio.player.addModelListener('BUFFER','hthas.audio.bufferListener');
-}
