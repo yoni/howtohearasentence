@@ -36,9 +36,7 @@ timeListener:function(obj) {
 		console.debug(hthas.audio.queue[playTime].keyword + " queued at time " + playTime);
 	}
 	//the end of the presentation
-	if(playTime == 1115) {
-		hthas.endPresentation();
-	}
+	setTimeout(5000, "hthas.endPresentation()");
 },
 
 bufferListener:function(obj) {

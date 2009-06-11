@@ -9,7 +9,7 @@ body {
 	background-color: #FDFDF0;
 	background-image: url("../../images/paper.jpg");
 	background-position: 50% 0%;
-	background-repeat: no-repeat; 		
+	background-repeat: no-repeat;
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
@@ -26,7 +26,7 @@ body {
 .sentence {
 	color:#000000;
 	font-family:"Arial";
-	font-size:14pt;
+	font-size:15pt;
 	position:absolute;
 	width:100px;
 	z-index:1;

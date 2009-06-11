@@ -103,7 +103,7 @@ var hthas = {
 	 * the black box.
 	 */
 	queueNextSentence:function() {
-		if (hthas.sentenceQueue < hthas.Sentences.length) {
+		if (hthas.sentenceQueue <= hthas.Sentences.length) {
 		
 			var bbPosition = $('.blackBox').position();
 			var sentenceId = hthas.Sentences[hthas.sentenceQueue].element.id;
