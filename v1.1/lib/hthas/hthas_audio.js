@@ -175,6 +175,6 @@ for(var i in hthas.rawQueueTimes) {
 function playerReady(thePlayer) {
 	console.debug("Player " + thePlayer + " ready.");
 	hthas.audio.player = document.getElementById(thePlayer.id);
-	hthas.audio.player.addModelListener('TIME','timeListener'); 
-	hthas.audio.player.addModelListener('BUFFER','bufferListener');
+	hthas.audio.player.addModelListener('TIME','hthas.audio.timeListener'); 
+	hthas.audio.player.addModelListener('BUFFER','hthas.audio.bufferListener');
 }
