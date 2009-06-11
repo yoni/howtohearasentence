@@ -60,9 +60,8 @@ body {
 	top:-300px;
 }
 
-#notBuffered {
-	position:relative;
-	width:50%;	
+.bufferingText {
+	color:#DB2929;
 }
 
 .popUpClose {
@@ -70,8 +69,4 @@ body {
 	position:relative;
 	width:100%;
 	height:30px;
-}
-
-.popUpLink {
-	text-align:right;
 }
