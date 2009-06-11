@@ -27,12 +27,12 @@ function createPlayer() {
  */
 function timeListener(obj) {
 	if(queue[obj.position]) {
+		queue[obj.position] = false; //make sure it isn't called twice
 		hthas.queueNextSentence();
 	}
 }
 function bufferListener(obj) {
-	alert('buffer is ready');
-	//$("#buffer").html("Thanks for waiting. The buffer is full.");
+	$("#buffer").html("Thanks for waiting. The buffer is full.");
 }
 
 var player = null;
