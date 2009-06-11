@@ -27,8 +27,10 @@
 				hthas.initializeInferences();
 				hthas.mapKeywords();
 				hthas.initializeStyles();
+				//player.sendEvent('PLAY');
+				//player.sendEvent('PAUSE');
 				
-				createPlayer();
+				hthas.audio.createPlayer();
 				
 				renderPopUp();
 			}
@@ -48,7 +50,7 @@
 			
 			function start() {
 				//alert('start');
-				player.sendEvent('PLAY');
+				hthas.audio.player.sendEvent('PLAY');
 				if(console && console.debug) {
 					console.debug("Starting presentation.");
 				}

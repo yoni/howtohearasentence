@@ -1,10 +1,13 @@
+
+hthas.audio = {
+
 /**
  * Handles loading of the audio player and using the position
  * to queue sentences.
  * 
  * @author yoni.ben-meshulam
  */
-function createPlayer() {
+createPlayer:function() {
     var flashvars = {
             file:"http://omnib.in/hthas/v1.1/audio/we_record_on_monday4.mp3", 
             autostart:"false"
@@ -19,35 +22,42 @@ function createPlayer() {
             name:"player1"
     }
     swfobject.embedSWF("lib/mediaplayer/player.swf", "placeholder1", "320", "196", "9.0.115", false, flashvars, params, attributes);
-}
+},
 
 /**
  * We attached this listener to the player. It receives the time info every 1/10 of a second.
  * @param {duration:'a number',position:'a number'}
  */
-function timeListener(obj) {
+timeListener:function(obj) {
 	var playTime = Math.floor(obj.position);
+	
 	if(queue[playTime] && queue[playTime].set) {
 		queue[playTime].set = false; //make sure it isn't called twice
 		console.debug(keyword + " queued st time " + playTime);
 		hthas.queueNextSentence();
 	}
-}
-function bufferListener(obj) {
+},
+
+bufferListener:function(obj) {
 	console.debug("The buffer is full");
 	//$("#buffer").html("Thanks for waiting. The buffer is full.");
-}
+},
 
-var player = null;
-function playerReady(thePlayer) {
+player:null,
+
+playerReady:function(thePlayer) {
 	console.debug("Player " + thePlayer + " ready.");
 	player = document.getElementById(thePlayer.id);
 	player.addModelListener('TIME','timeListener'); 
 	player.addModelListener('BUFFER','bufferListener');
+},
+
+// Contains the position in seconds for queueing the sentences
+queue:[]
 }
 
 // The raw times that the keywords are spoken in the text
-var rawQueueTimes = [{
+hthas.rawQueueTimes = [{
 keyword:'objects', time:'00:13'
 },{
 keyword:'contingent', time:'00:52'
@@ -149,11 +159,9 @@ keyword:'acquire', time: '18:10'
 keyword:'silence', time: '18:30'
 }];
 
-// Contains the position in seconds for queueing the sentences
-var queue = [];
-for(var i in rawQueueTimes) {
-	var rawTime = rawQueueTimes[i].time;
-	var rawKeyword = rawQueueTimes[i].keyword;
+for(var i in hthas.rawQueueTimes) {
+	var rawTime = hthas.rawQueueTimes[i].time;
+	var rawKeyword = hthas.rawQueueTimes[i].keyword;
 	
 	//calculate in seconds
 	var minStr=rawTime.split(":")[0];
@@ -163,7 +171,7 @@ for(var i in rawQueueTimes) {
 	var totalSecs = minNum*60 + secNum;
 	totalSecs += '';
 	
-	queue[totalSecs] = {
+	hthas.audio.queue[totalSecs] = {
 		keyword:rawKeyword, set: true
 	};
 }

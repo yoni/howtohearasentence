@@ -46,7 +46,6 @@ var hthas = {
 	 */
 	sWidth:screen.width/4,
 	
-	
 	/**
 	 * This array will hold our Sentence objects, arranged in order
 	 */
