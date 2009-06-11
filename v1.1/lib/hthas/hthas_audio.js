@@ -14,7 +14,7 @@ createPlayer:function() {
     }
     var params = {
             allowscriptaccess:"always",
-			bufferlength:"45"
+			bufferlength:"60"
     }
     var attributes = {
             id:"player1",  
@@ -36,11 +36,6 @@ timeListener:function(obj) {
 	}
 	//the end of the presentation
 	setTimeout(5000, "hthas.endPresentation()");
-},
-
-bufferListener:function(obj) {
-	console.debug("The buffer is full");
-	$("#bufferText").html("Thanks for waiting. The buffer is full.");
 },
 
 player:null,

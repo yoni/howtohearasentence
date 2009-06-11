@@ -62,11 +62,18 @@
 				console.debug("Player " + thePlayer + " ready.");
 				hthas.audio.player = document.getElementById(thePlayer.id);
 				hthas.audio.player.addModelListener('TIME','hthas.audio.timeListener'); 
-				hthas.audio.player.addModelListener('BUFFER','hthas.audio.bufferListener');
+				hthas.audio.player.addModelListener('BUFFER','bufferListener');
 				
 				// play for a second, then pause to try and fix the loading bug
 				hthas.audio.player.sendEvent('PLAY');
 				hthas.audio.player.sendEvent('PLAY');
+			}
+			
+			
+			function bufferListener(obj) {
+				console.debug("The buffer is full");
+				$("#notBuffered").hide();
+				$("#buffered").show();
 			}
 		</script>
 		
@@ -82,12 +89,15 @@
 	        <h3>How to hear a sentence.</h3>
 			<p>This is a performative reading that focuses our attention on the meaning behind language and communication.  The readers' articles focus the nature of language, talking, understanding, inference, and related topics.  Meanwhile, you will see extracted some key elements from the texts and inferred phrases presented to you.  These phrases, in turn, find their way into a second level of inference, and the final poem represents the culmination of a twice-removed exercise in inference.</p>
 			<p>Please be prepared to sit down for about 18 minutes.</p>
-			<p>When you feel you are ready, press the big red button.</p>
-			<!--<img class="wait" src="images/spinning-wait-icons/wait30trans.gif" />-->
-			<button class="popUpClose"></button>
+			<div id="notBuffered">
+				<p>Buffering audio.</p><img class="wait" src="images/spinning-wait-icons/wait30trans.gif" />
+			</div>
+			<div id="buffered" style="visibility:hidden;">
+				<p>When you feel you are ready, press the big red button.</p>
+				<button class="popUpClose"></button>
+			</div>
 			<br>
 			<a  href="http://www.marisaplumb.com/ongoing" class="popUpLink">project homepage</a>
-			<p id="bufferText"></p>
     	</div>
     </body>
 </html>

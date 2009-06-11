@@ -60,6 +60,11 @@ body {
 	top:-300px;
 }
 
+#notBuffered {
+	position:relative;
+	width:50%;	
+}
+
 .popUpClose {
 	background-color:red;
 	position:relative;
