@@ -26,7 +26,6 @@ function createPlayer() {
  * @param {duration:'a number',position:'a number'}
  */
 function timeListener(obj) {
-	console.debug("timeListener called: " + obj.position);
 	var playTime = Math.floor(obj.position);
 	if(queue[playTime] && queue[playTime].set) {
 		queue[playTime].set = false; //make sure it isn't called twice
