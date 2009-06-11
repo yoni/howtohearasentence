@@ -35,23 +35,23 @@
 			
 			function renderPopUp(){
 				// Attach click event to the link in the popup so it calls the 'start' function.
-		        //$('.popUpClose').click(start);
-				//$('.popUpClose').closeDOMWindow({eventType:'click'}); 
-				$('.popUpClose').closeDOMWindow({anchoredClassName:'popUpClass',eventType:'click'}); 
-		        
+				$('.popUpClose').closeDOMWindow({eventType:'click'}); 
+		        $('.popUpClose').click(start);
+
 				$.openDOMWindow({ 
-		            height:210,
-		            width:480,
-					positionType:'absolute', 
-		            positionLeft:0,
-		            positionTop:0,
-		            positionType:'centered',
-		            windowSourceID:'#popUp'
-		        });				
+			        event:'click',
+					functionCallOnClose:start,
+					modal:1,
+			        windowSourceID:'#popUp' 
+			    }); 
 			}
 			
 			function start() {
+				//alert('start');
 				player.sendEvent('PLAY');
+				if(console && console.debug) {
+					console.debug("Starting presentation.");
+				}
 			}
 			
 		</script>
@@ -69,22 +69,20 @@
 			<img class="wait" src="images/spinning-wait-icons/wait30trans.gif" />
 	        <a href="javascript:void(0)" title="Close this Window and start the show." class="popUpClose">Start</a>
     	</div>
-    <p><a href="#inlineContentExample5" class="example5DOMWindow">Open DOM Window</a> | <a href="#inlineContent" class="example5closeDOMWindow">Close DOM Window</a></p> 
 <script type="text/javascript"> 
-$('.example5DOMWindow').openDOMWindow({ 
-		            height:210,
-		            width:480,
-					//anchoredClassName:'exampleWindow6',
-					eventType:'click', 
-					//overlay:1,
-					positionType:'absolute', 
-		            positionLeft:0,
-		            positionTop:0,
-		            positionType:'centered',
-					borderColor:'#990000' 
-				}); 
+//$('.example5DOMWindow').openDOMWindow({ 
+//		            height:210,
+//		            width:480,
+//					//anchoredClassName:'exampleWindow6',
+//					eventType:'click', 
+//					//overlay:1,
+//					positionType:'absolute', 
+//		            positionLeft:0,
+//		            positionTop:0,
+//		            positionType:'centered',
+//					borderColor:'#990000' 
+//				}); 
 //$('.example5closeDOMWindow').closeDOMWindow({eventType:'click'}); 
 </script> 
-<div id="inlineContentExample5" style="display: none;"><p>Example 5 window.</p></div>
     </body>
 </html>
