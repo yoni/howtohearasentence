@@ -1,4 +1,5 @@
 /**
+ * Hard-coded sentences and inferences for use in the static version of HTHAS.
  * @author yoni
  */
 

@@ -344,5 +344,15 @@ var hthas = {
 		hthas.smFS = smallFontSize*multiplier;
 		hthas.lgFS = largeFontSize*multiplier;
 		hthas.sWidth = screen.width/4;
+	},
+	
+	/**
+	 * Called after page load.
+	 */
+	initialize:function() {
+		hthas.initializeSentences();
+		hthas.initializeInferences();
+		hthas.mapKeywords();
+		hthas.initializeStyles();
 	}
 }
