@@ -31,6 +31,7 @@
 			function initialize() {
 				hthas.initialize();
 				hthas.audio.createPlayer();
+				$('#buffered').hide();
 				renderPopUp();
 			}
 			
@@ -92,7 +93,7 @@
 			<div id="notBuffered">
 				<p>Buffering audio.</p><img class="wait" src="images/spinning-wait-icons/wait30trans.gif" />
 			</div>
-			<div id="buffered" style="visibility:hidden;">
+			<div id="buffered">
 				<p>When you feel you are ready, press the big red button.</p>
 				<button class="popUpClose"></button>
 			</div>
