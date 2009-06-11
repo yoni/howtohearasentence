@@ -9,7 +9,7 @@ hthas.audio = {
  */
 createPlayer:function() {
     var flashvars = {
-            file:"http://omnib.in/hthas/v1.1/audio/we_record_on_monday4.mp3", 
+            file:"http://omnib.in/hthas/v1.1/audio/hthas.mp3", 
             autostart:"false"
     }
     var params = {
