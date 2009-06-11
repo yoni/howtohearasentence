@@ -13,9 +13,8 @@ createPlayer:function() {
             autostart:"false"
     }
     var params = {
-            allowfullscreen:"true",
             allowscriptaccess:"always",
-			bufferlength:"3100"
+			bufferlength:"45"
     }
     var attributes = {
             id:"player1",  
@@ -41,7 +40,7 @@ timeListener:function(obj) {
 
 bufferListener:function(obj) {
 	console.debug("The buffer is full");
-	//$("#buffer").html("Thanks for waiting. The buffer is full.");
+	$("#buffer").html("Thanks for waiting. The buffer is full.");
 },
 
 player:null,
