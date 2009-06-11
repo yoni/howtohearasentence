@@ -33,11 +33,13 @@ function timeListener(obj) {
 	}
 }
 function bufferListener(obj) {
-	$("#buffer").html("Thanks for waiting. The buffer is full.");
+	console.debug("The buffer is full");
+	//$("#buffer").html("Thanks for waiting. The buffer is full.");
 }
 
 var player = null;
 function playerReady(thePlayer) {
+	console.debug("Player " + thePlayer + " ready.");
 	player = document.getElementById(thePlayer.id);
 	player.addModelListener('TIME','timeListener'); 
 	player.addModelListener('BUFFER','bufferListener');
