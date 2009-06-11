@@ -30,7 +30,7 @@ createPlayer:function() {
  */
 timeListener:function(obj) {
 	var playTime = Math.floor(obj.position);
-	
+	if(playTime == 13) {console.debug("13")}
 	if(queue[playTime] && queue[playTime].set) {
 		queue[playTime].set = false; //make sure it isn't called twice
 		console.debug(keyword + " queued st time " + playTime);
