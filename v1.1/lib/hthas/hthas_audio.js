@@ -45,13 +45,6 @@ bufferListener:function(obj) {
 
 player:null,
 
-playerReady:function(thePlayer) {
-	console.debug("Player " + thePlayer + " ready.");
-	player = document.getElementById(thePlayer.id);
-	player.addModelListener('TIME','timeListener'); 
-	player.addModelListener('BUFFER','bufferListener');
-},
-
 // Contains the position in seconds for queueing the sentences
 queue:[]
 }
@@ -174,4 +167,14 @@ for(var i in hthas.rawQueueTimes) {
 	hthas.audio.queue[totalSecs] = {
 		keyword:rawKeyword, set: true
 	};
+}
+/**
+ * Global function called by the audio player when it's initialized
+ * @param {Object} thePlayer
+ */
+function playerReady(thePlayer) {
+	console.debug("Player " + thePlayer + " ready.");
+	hthas.audio.player = document.getElementById(thePlayer.id);
+	hthas.audio.player.addModelListener('TIME','timeListener'); 
+	hthas.audio.player.addModelListener('BUFFER','bufferListener');
 }
