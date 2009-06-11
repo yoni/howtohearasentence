@@ -20,7 +20,7 @@ createPlayer:function() {
             id:"player1",  
             name:"player1"
     }
-    swfobject.embedSWF("lib/mediaplayer/player.swf", "placeholder1", "320", "196", "9.0.115", false, flashvars, params, attributes);
+    swfobject.embedSWF("lib/player.swf", "placeholder1", "320", "196", "9.0.115", false, flashvars, params, attributes);
 },
 
 /**
