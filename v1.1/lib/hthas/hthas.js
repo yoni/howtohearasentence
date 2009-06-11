@@ -70,29 +70,6 @@ var hthas = {
 	bBoxSentences:{},
 
 	/**
-	 * On each spacebar press, we queue in the next sentence.
-	 * @param {Object} eventObject
-	 */
-	handleKeypress:function(eventObject) {
-		
-		switch (eventObject.which) {
-			case 32://spacebar pressed
-				if (hthas.sentenceQueue < hthas.Sentences.length) {
-					hthas.queueNextSentence();
-				}
-				break;
-			case 101://'e' key pressed
-				hthas.endPresentation();
-				break;
-			case 13://'return/enter' key pressed
-				hthas.stop = true; //set flag that is used in endPresentation
-				break;
-			default:
-				break;
-		}
-	},
-	
-	/**
 	 * Called when the 'e' key is pressed. Causes all of the Sentences to be ejected from the box
 	 * and fly around the bottom half of the screen. Keywords change font size in random order.
 	 * This process continues until the 'return/enter' key is pressed.
@@ -137,9 +114,6 @@ var hthas = {
 				hthas.handleSentenceAnimationEnd(sentenceId);
 			});
 			hthas.sentenceQueue++;
-		}
-		else {
-			hthas.endPresentation();
 		}
 	},
 	

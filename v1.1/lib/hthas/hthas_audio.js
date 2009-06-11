@@ -35,6 +35,10 @@ timeListener:function(obj) {
 		hthas.audio.queue[playTime].set = false; //make sure it isn't called twice
 		console.debug(hthas.audio.queue[playTime].keyword + " queued at time " + playTime);
 	}
+	//the end of the presentation
+	if(playTime == 1115) {
+		hthas.endPresentation();
+	}
 },
 
 bufferListener:function(obj) {
