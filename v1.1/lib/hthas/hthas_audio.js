@@ -40,7 +40,7 @@ timeListener:function(obj) {
 
 bufferListener:function(obj) {
 	console.debug("The buffer is full");
-	$("#buffer").html("Thanks for waiting. The buffer is full.");
+	$("#bufferText").html("Thanks for waiting. The buffer is full.");
 },
 
 player:null,
