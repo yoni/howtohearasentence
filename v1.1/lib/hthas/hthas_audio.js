@@ -27,7 +27,8 @@ function createPlayer() {
  */
 function timeListener(obj) {
 	if(queue[obj.position]) {
-		queue[obj.position] = false; //make sure it isn't called twice
+		queue[obj.position].set = false; //make sure it isn't called twice
+		console.debug(keyword + " queued");
 		hthas.queueNextSentence();
 	}
 }
@@ -43,68 +44,123 @@ function playerReady(thePlayer) {
 }
 
 // The raw times that the keywords are spoken in the text
-var rawQueueTimes = [
-'00:13',
-'00:52',
-'01:03',
-'01:10',
-'01:37',
-'01:56',
-'02:07',
-'02:20',
-'02:40',
-'02:47',
-'03:13',
-'03:46',
-'03:55',
-'04:24',
-'04:35',
-'04:40',
-'05:36',
-'05:47',
-'06:47',
-'07:00',
-'07:11',
-'07:16',
-'07:56',
-'08:09',
-'10:35',
-'10:47',
-'11:20',
-'11:32',
-'11:50',
-'12:07',
-'12:40',
-'12:46',
-'12:56',
-'13:17',
-'14:12',
-'14:38',
-'15:05',
-'15:14',
-'15:39',
-'15:46',
-'15:53',
-'16:27',
-'16:35',
-'16:52',
-'17:03',
-'17:17',
-'17:40',
-'17:51',
-'18:10',
-'18:30'];
-
+var rawQueueTimes = [{
+keyword:'objects', time:'00:13'
+},{
+keyword:'contingent', time:'00:52'
+},{
+keyword:'order', time: '01:03'
+},{
+keyword:'artificial', time: '01:10'
+},{
+keyword:'language', time: '01:37'
+},{
+keyword:'prove', time: '01:56'
+},{
+keyword:'event', time: '02:07'
+},{
+keyword:'generated', time: '02:20'
+},{
+keyword:'talking', time: '02:40'
+},{
+keyword:'stored', time: '02:47'
+},{
+keyword:'speak', time: '03:13'
+},{
+keyword:'speech', time: '03:46'
+},{
+keyword:'hearing', time: '03:55'
+},{
+keyword:'mimicry', time: '04:24'
+},{
+keyword:'everything', time: '04:35'
+},{
+keyword:'backing', time: '04:40'
+},{
+keyword:'past', time: '05:36'
+},{
+keyword:'hypothesis', time: '05:47'
+},{
+keyword:'suggests', time: '06:47'
+},{
+keyword:'orientation', time: '07:00'
+},{
+keyword:'witness', time: '07:11'
+},{
+keyword:'noise', time: '07:16'
+},{
+keyword:'means', time: '07:56'
+},{
+keyword:'situated', time: '08:09'
+},{
+keyword:'map', time: '10:35'
+},{
+keyword:'shifts', time: '10:47'
+},{
+keyword:'purpose', time: '11:20'
+},{
+keyword:'bridge', time: '11:32'
+},{
+keyword:'models', time: '11:50'
+},{
+keyword:'constrained', time: '12:07'
+},{
+keyword:'holds', time: '12:40'
+},{
+keyword:'prototype', time: '12:46'
+},{
+keyword:'formal', time: '12:56'
+},{
+keyword:'implied', time: '13:17'
+},{
+keyword:'emphatic', time: '14:12'
+},{
+keyword:'channels', time: '14:38'
+},{
+keyword:'embodiment', time: '15:05'
+},{
+keyword:'distributed', time: '15:14'
+},{
+keyword:'experiential', time: '15:39'
+},{
+keyword:'boot', time: '15:46'
+},{
+keyword:'attention', time: '15:53'
+},{
+keyword:'child', time: '16:27'
+},{
+keyword:'intentions', time: '16:35'
+},{
+keyword:'bears', time: '16:52'
+},{
+keyword:'act', time: '17:03'
+},{
+keyword:'differentiation', time: '17:17'
+},{
+keyword:'possibility', time: '17:40'
+},{
+keyword:'draw', time: '17:51'
+},{
+keyword:'acquire', time: '18:10'
+},{
+keyword:'silence', time: '18:30'
+}];
 
 // Contains the position in seconds for queueing the sentences
 var queue = [];
 for(var i in rawQueueTimes) {
-	var rawTime = rawQueueTimes[i];
+	var rawTime = rawQueueTimes[i].time;
+	var rawKeyword = rawQueueTimes[i].keyword;
+	
+	//calculate in seconds
 	var minStr=rawTime.split(":")[0];
 	var secStr=rawTime.split(":")[1];
 	var minNum = Number(minStr);
 	var secNum = Number(secStr);
 	var totalSecs = minNum*60 + secNum;
 	totalSecs += '';
-	queue[totalSecs] = true;
+	
+	queue[totalSecs] = {
+		keyword:rawKeyword, set: true
+	};
 }
