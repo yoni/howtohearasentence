@@ -8,8 +8,13 @@ hthas.audio = {
  * @author yoni.ben-meshulam
  */
 createPlayer:function() {
+	var path = window.location.href;
+	path = path.split('/');
+	path[path.length-1]="audio/hthas.mp3";
+	path = path.join("/");
+	console.debug(path);
     var flashvars = {
-            file:"http://omnib.in/hthas/v1.1/audio/hthas.mp3", 
+            file:path, 
             autostart:"false"
     }
     var params = {
