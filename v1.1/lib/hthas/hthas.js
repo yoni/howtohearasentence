@@ -382,7 +382,7 @@ var hthas = {
 				console.debug(hthas.audio.queue[playTime].keyword + " queued at time " + playTime);
 			}
 			//the end of the presentation
-			setTimeout(5000, "hthas.endPresentation()");
+			if(playTime == 1111) setTimeout("hthas.endPresentation();", 5000);
 		},
 		player:null,
 		// Contains the position in seconds for queueing the sentences
