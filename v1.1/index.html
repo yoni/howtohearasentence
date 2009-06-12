@@ -40,15 +40,8 @@
 		<script type="text/javascript" src="lib/jquery-ui-1.7.1.custom.min.js"></script>
 		<script type="text/javascript" src="lib/jquery.DOMWindow.js"></script>
 		
-		<!-- HTHAS libraries and static content 
-			 TODO: Move all of these into one file for faster page load.
-		-->
-		<script type="text/javascript" src="lib/hthas/keywordColors.js"></script>
-		<script type="text/javascript" src="lib/hthas/content.js"></script>
-		<script type="text/javascript" src="lib/hthas/Sentence.js"></script>
-		<script type="text/javascript" src="lib/hthas/Inference.js"></script>
+		<script type="text/javascript" src="lib/hthas/hthas_static.js"></script>
 		<script type="text/javascript" src="lib/hthas/hthas.js"></script>
-		<script type="text/javascript" src="lib/hthas/hthas_audio.js"></script>  
         
 		<!-- Main page logic -->
 		<script type="text/javascript">
@@ -58,7 +51,9 @@
 				$('#buffered').hide();
 				renderPopUp();
 			});
-			
+			/**
+			 * Opens the initial popup window. Attaches close control and a function to call on close.
+			 */
 			function renderPopUp(){
 				// Attach click event to the link in the popup so it calls the 'start' function.
 				$('.popUpClose').closeDOMWindow({eventType:'click'}); 
@@ -71,14 +66,12 @@
 			        windowSourceID:'#popUp' 
 			    }); 
 			}
-			
+			/**
+			 * Starts the performance by playing the audio.
+			 */			
 			function start() {
 				hthas.audio.player.sendEvent('PLAY');
-				if(console && console.debug) {
-					console.debug("Starting presentation.");
-				}
 			}
-			
 			/**
 			 * Global function called by the audio player when it's initialized
 			 * @param {Object} thePlayer
@@ -88,18 +81,19 @@
 				hthas.audio.player = document.getElementById(thePlayer.id);
 				hthas.audio.player.addModelListener('TIME','hthas.audio.timeListener'); 
 				hthas.audio.player.addModelListener('BUFFER','bufferListener');
-				
-				// play for a second, then pause to try and fix the loading bug
+				// play for a second, then pause. This is a hack to try and fix the loading bug
 				hthas.audio.player.sendEvent('PLAY');
 				hthas.audio.player.sendEvent('PLAY');
 			}
-			
+			/**
+			 * Called by the audio player when the buffer is full.
+			 * @param {Object} obj
+			 */			
 			function bufferListener(obj) {
 				console.debug("The buffer is full");
 				$("#notBuffered").hide();
 				$("#buffered").show();
 			}
-			
 		</script>
     </body>
 </html>
