@@ -8,11 +8,12 @@ hthas.audio = {
  * @author yoni.ben-meshulam
  */
 createPlayer:function() {
+	// generate mp3 file path
 	var path = window.location.href;
 	path = path.split('/');
 	path[path.length-1]="audio/hthas.mp3";
 	path = path.join("/");
-	console.debug(path);
+	// set up and instantiate player
     var flashvars = {
             file:path, 
             autostart:"false"
