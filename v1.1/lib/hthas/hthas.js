@@ -379,7 +379,6 @@ var hthas = {
 			if(hthas.audio.queue[playTime] && hthas.audio.queue[playTime].set) {
 				hthas.queueNextSentence();
 				hthas.audio.queue[playTime].set = false; //make sure it isn't called twice
-				console.debug(hthas.audio.queue[playTime].keyword + " queued at time " + playTime);
 			}
 			//the end of the presentation
 			if(playTime == 1111) setTimeout("hthas.endPresentation();", 5000);

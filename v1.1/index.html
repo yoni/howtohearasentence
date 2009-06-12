@@ -77,7 +77,6 @@
 			 * @param {Object} thePlayer
 			 */
 			function playerReady(thePlayer) {
-				console.debug("Player " + thePlayer + " ready.");
 				hthas.audio.player = document.getElementById(thePlayer.id);
 				hthas.audio.player.addModelListener('TIME','hthas.audio.timeListener'); 
 				hthas.audio.player.addModelListener('BUFFER','bufferListener');
@@ -90,7 +89,6 @@
 			 * @param {Object} obj
 			 */			
 			function bufferListener(obj) {
-				console.debug("The buffer is full");
 				$("#notBuffered").hide();
 				$("#buffered").show();
 			}
