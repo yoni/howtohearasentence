@@ -5,6 +5,30 @@
     	<title>how to hear a sentence</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+			</head>
+    <body>
+    	<div class='blackBox'></div>
+	
+		<div id="wrapper">
+            <div id="placeholder1"></div>
+        </div>
+	    
+		<div id="popUp" class="popUpClass">
+	        <h3>How to hear a sentence.</h3>
+			<p>Is a performative reading that focuses on language, communication, and meaning.  The readers' articles focus the nature of language, talking, understanding, inference, and related topics.  Meanwhile, you will see extracted some key elements from the texts and inferred phrases presented.  These phrases, in turn, find their way into a second level of inference, and the final poem represents the culmination of a twice-removed exercise in inference.</p>
+			<p>Please be prepared to sit down for about 18 minutes.</p>
+			<div id="notBuffered">
+				<p class="bufferingText">Buffering audio.</p><img class="wait" src="images/spinning-wait-icons/wait30trans.gif" />
+			</div>
+			<div id="buffered">
+				<p>When you feel you are ready, press the big red button.</p>
+				<button class="popUpClose"></button>
+			</div>
+			<br>
+			<a  href="http://www.marisaplumb.com/ongoing" class="popUpLink">project homepage</a>
+    	</div>
+		
+		<!-- Javascript and Styles -->
 		<!-- HTHAS Styles -->
 		<link rel="stylesheet" type="text/css" href="lib/hthas/hthas.css"></style>
 		
@@ -28,12 +52,12 @@
         
 		<!-- Main page logic -->
 		<script type="text/javascript">
-			function initialize() {
+			//called after page has loaded
+			$(document).ready(function(){
 				hthas.initialize();
-				hthas.audio.createPlayer();
 				$('#buffered').hide();
 				renderPopUp();
-			}
+			});
 			
 			function renderPopUp(){
 				// Attach click event to the link in the popup so it calls the 'start' function.
@@ -70,35 +94,12 @@
 				hthas.audio.player.sendEvent('PLAY');
 			}
 			
-			
 			function bufferListener(obj) {
 				console.debug("The buffer is full");
 				$("#notBuffered").hide();
 				$("#buffered").show();
 			}
+			
 		</script>
-		
-	</head>
-    <body onload="initialize()">
-    	<div class='blackBox'></div>
-	
-		<div id="wrapper">
-            <div id="placeholder1"></div>
-        </div>
-	    
-		<div id="popUp" class="popUpClass">
-	        <h3>How to hear a sentence.</h3>
-			<p>Is a performative reading that focuses on language, communication, and meaning.  The readers' articles focus the nature of language, talking, understanding, inference, and related topics.  Meanwhile, you will see extracted some key elements from the texts and inferred phrases presented.  These phrases, in turn, find their way into a second level of inference, and the final poem represents the culmination of a twice-removed exercise in inference.</p>
-			<p>Please be prepared to sit down for about 18 minutes.</p>
-			<div id="notBuffered">
-				<p class="bufferingText">Buffering audio.</p><img class="wait" src="images/spinning-wait-icons/wait30trans.gif" />
-			</div>
-			<div id="buffered">
-				<p>When you feel you are ready, press the big red button.</p>
-				<button class="popUpClose"></button>
-			</div>
-			<br>
-			<a  href="http://www.marisaplumb.com/ongoing" class="popUpLink">project homepage</a>
-    	</div>
     </body>
 </html>
