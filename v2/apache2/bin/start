@@ -1,4 +1,0 @@
-#!/bin/bash
-
-export PYTHONPATH=/home/bmesh/webapps/hthas_django/lib/python2.5
-/home/bmesh/webapps/hthas_django/apache2/bin/httpd -f /home/bmesh/webapps/hthas_django/apache2/conf/httpd.conf -k start

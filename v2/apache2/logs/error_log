@@ -1,7 +1,0 @@
-[Sun Feb 22 13:15:12 2009] [error] python_init: Python version mismatch, expected '2.5.1', found '2.5.2'.
-[Sun Feb 22 13:15:12 2009] [error] python_init: Python executable found '/usr/local/bin/python'.
-[Sun Feb 22 13:15:12 2009] [error] python_init: Python path being used '/home/bmesh/webapps/hthas_django/lib/python2.5:/usr/local/lib/python25.zip:/usr/local/lib/python2.5/:/usr/local/lib/python2.5/plat-linux2:/usr/local/lib/python2.5/lib-tk:/usr/local/lib/python2.5/lib-dynload'.
-[Sun Feb 22 13:15:12 2009] [notice] mod_python: Creating 2 session mutexes based on 2 max processes and 0 max threads.
-[Sun Feb 22 13:15:12 2009] [notice] mod_python: using mutex_directory /tmp 
-[Sun Feb 22 13:15:12 2009] [notice] Apache/2.2.3 (CentOS) mod_python/3.3.1 Python/2.5.2 configured -- resuming normal operations
-[Sun Feb 22 13:15:13 2009] [error] server reached MaxClients setting, consider raising the MaxClients setting
